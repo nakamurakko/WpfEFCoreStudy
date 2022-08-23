@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace WpfEFCoreStudy.Views;
 
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// MainWindow。
 /// </summary>
 public partial class MainWindow : Window
 {
