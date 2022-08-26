@@ -22,5 +22,6 @@ public class Book
 
     public Int64? AuthorId { get; set; }
 
+    [ForeignKey(nameof(AuthorId))]
     public Author Author { get; set; }
 }
