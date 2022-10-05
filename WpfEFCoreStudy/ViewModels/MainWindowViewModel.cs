@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,9 +13,11 @@ namespace WpfEFCoreStudy.ViewModels;
 /// <summary>
 /// MainWindow用ViewModel。
 /// </summary>
-public class MainWindowViewModel
+public partial class MainWindowViewModel : ObservableObject
 {
-    public string Title { get; set; } = "WpfEFCoreStudy";
+    [ObservableProperty]
+    private string _title = "WpfEFCoreStudy";
 
-    public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>(BookModel.GetBooks());
+    [ObservableProperty]
+    private ObservableCollection<Book> _books = new ObservableCollection<Book>(BookModel.GetBooks());
 }
