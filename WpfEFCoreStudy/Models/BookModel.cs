@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,13 @@ public class BookModel
     /// 本情報を取得する。
     /// </summary>
     /// <returns></returns>
-    public static IEnumerable<Book> GetBooks()
+    public static async Task<IEnumerable<Book>> GetBooksAsync()
     {
         var books = new List<Book>();
 
         using (var dbContext = new BookDBContext())
         {
-            books = dbContext.Books
+            books = await dbContext.Books
                 .Join(
                     dbContext.Authors,
                     book => book.AuthorId,
@@ -37,7 +38,7 @@ public class BookModel
                             Author = book.Author
                         }
                 )
-                .ToList();
+                .ToListAsync();
         }
 
         return books;
