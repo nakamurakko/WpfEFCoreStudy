@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WpfEFCoreStudy.DataTypes;
 
 namespace WpfEFCoreStudy.DB;
@@ -11,7 +6,7 @@ namespace WpfEFCoreStudy.DB;
 /// <summary>
 /// 本DBアクセス用 DbContext。
 /// </summary>
-public class BookDBContext : DbContext
+public sealed class BookDBContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

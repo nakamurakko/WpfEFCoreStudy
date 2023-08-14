@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.Models;
@@ -29,7 +26,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     /// </summary>
     public MainWindowViewModel()
     {
-        Initialization = InitializeAsync();
+        this.Initialization = this.InitializeAsync();
     }
 
     /// <summary>
@@ -38,10 +35,10 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     /// <returns><see cref="Task"/></returns>
     private async Task InitializeAsync()
     {
-        var books = await BookModel.GetBooksAsync();
-        foreach (var book in books)
+        IEnumerable<Book>? books = await BookModel.GetBooksAsync();
+        foreach (Book book in books)
         {
-            Books.Add(book);
+            this.Books.Add(book);
         }
     }
 

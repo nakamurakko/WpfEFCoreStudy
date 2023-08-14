@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfEFCoreStudy.DataTypes;
 
@@ -14,13 +9,13 @@ namespace WpfEFCoreStudy.DataTypes;
 [Table(nameof(Book))]
 public class Book
 {
-    public Int64 BookId { get; set; }
+    public long BookId { get; set; }
 
     [Required]
     [MaxLength(100)]
     public string Title { get; set; }
 
-    public Int64? AuthorId { get; set; }
+    public long? AuthorId { get; set; }
 
     [ForeignKey(nameof(AuthorId))]
     public Author Author { get; set; }
