@@ -13,7 +13,8 @@
     </Window.DataContext>
 
     <Grid>
-        <ListView ItemsSource="{Binding Books}">
+        <ListView HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding Books}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="LightGray"
