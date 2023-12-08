@@ -8,7 +8,6 @@
     <Authors>nakamurakko</Authors>
     <Copyright>@ nakamurakko</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
