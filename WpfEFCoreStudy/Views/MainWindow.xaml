@@ -13,7 +13,30 @@
     </Window.DataContext>
 
     <Grid>
-        <ListView HorizontalContentAlignment="Stretch"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     Text="{Binding SearchTitle}" />
+            <Button Grid.Column="1"
+                    Command="{Binding SearchBooksCommand}"
+                    Content="検索" />
+            <Button Grid.Column="2"
+                    Command="{Binding ClearSearchResultCommand}"
+                    Content="検索結果をクリア" />
+        </Grid>
+
+        <ListView Grid.Row="1"
+                  HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Books}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -51,6 +74,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
     </Grid>
 
 </Window>

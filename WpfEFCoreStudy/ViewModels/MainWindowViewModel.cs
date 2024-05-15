@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -13,11 +14,18 @@ namespace WpfEFCoreStudy.ViewModels;
 /// </summary>
 public partial class MainWindowViewModel : ObservableObject, IAsyncInitialization
 {
+
     [ObservableProperty]
     private string _title = "WpfEFCoreStudy";
 
     [ObservableProperty]
     private ObservableCollection<Book> _books = new ObservableCollection<Book>();
+
+    /// <summary>
+    /// 検索対象の本のタイトル。
+    /// </summary>
+    [ObservableProperty]
+    private string _searchTitle = "";
 
     public Task Initialization { get; private set; }
 
@@ -36,6 +44,41 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     private async Task InitializeAsync()
     {
         IEnumerable<Book>? books = await BookModel.GetBooksAsync();
+        foreach (Book book in books)
+        {
+            this.Books.Add(book);
+        }
+    }
+
+    /// <summary>
+    /// 本を検索する。
+    /// </summary>
+    [RelayCommand]
+    private async Task SearchBooksAsync()
+    {
+        if (string.IsNullOrWhiteSpace(this.SearchTitle))
+        {
+            return;
+        }
+
+        this.Books.Clear();
+        IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle);
+        foreach (Book book in books)
+        {
+            this.Books.Add(book);
+        }
+    }
+
+    /// <summary>
+    /// 検索結果をクリアする。
+    /// </summary>
+    [RelayCommand]
+    private async Task ClearSearchResultAsync()
+    {
+        this.SearchTitle = "";
+
+        this.Books.Clear();
+        IEnumerable<Book> books = await BookModel.GetBooksAsync();
         foreach (Book book in books)
         {
             this.Books.Add(book);
