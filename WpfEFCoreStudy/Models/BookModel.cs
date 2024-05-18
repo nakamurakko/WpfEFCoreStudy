@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,12 +49,22 @@ public sealed class BookModel
     /// </summary>
     /// <param name="title">本のタイトル。部分一致検索する。</param>
     /// <returns>本情報の一覧。</returns>
-    public static async Task<IEnumerable<Book>> GetBooksAsync(string title)
+    public static async Task<IEnumerable<Book>> GetBooksAsync(string title, string authorName)
     {
         List<Book> books = new List<Book>();
 
         using (BookDBContext dbContext = new BookDBContext())
         {
+            ExpressionStarter<Book> predicateBuilder = PredicateBuilder.New<Book>(false);
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                predicateBuilder.Or(x => x.Title.Contains(title));
+            }
+            if (!string.IsNullOrWhiteSpace(authorName))
+            {
+                predicateBuilder.Or(x => x.Author.AuthorName.Contains(authorName));
+            }
+
             books = await dbContext.Books
                 .GroupJoin(
                     dbContext.Authors,
@@ -72,7 +83,7 @@ public sealed class BookModel
                         Author = author
                     }
                 )
-                .Where(book => book.Title.Contains(title))
+                .Where(predicateBuilder)
                 .ToListAsync();
         }
 

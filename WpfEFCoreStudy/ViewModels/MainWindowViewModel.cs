@@ -27,6 +27,12 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     [ObservableProperty]
     private string _searchTitle = "";
 
+    /// <summary>
+    /// 検索対象の著者名。
+    /// </summary>
+    [ObservableProperty]
+    private string _searchAuthorName = "";
+
     public Task Initialization { get; private set; }
 
     /// <summary>
@@ -62,7 +68,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
         }
 
         this.Books.Clear();
-        IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle);
+        IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
         foreach (Book book in books)
         {
             this.Books.Add(book);
@@ -76,6 +82,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     private async Task ClearSearchResultAsync()
     {
         this.SearchTitle = "";
+        this.SearchAuthorName = "";
 
         this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync();
