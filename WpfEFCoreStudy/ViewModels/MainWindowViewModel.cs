@@ -62,11 +62,6 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     [RelayCommand]
     private async Task SearchBooksAsync()
     {
-        if (string.IsNullOrWhiteSpace(this.SearchTitle))
-        {
-            return;
-        }
-
         this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
         foreach (Book book in books)
