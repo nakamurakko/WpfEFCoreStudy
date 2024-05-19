@@ -30,10 +30,10 @@ public sealed class BookModel
                     dbContext.Authors,
                     book => book.AuthorId,
                     author => author.AuthorId,
-                    (book, author) => new { book, author }
+                    (book, authors) => new { book, authors }
                 )
                 .SelectMany(
-                    bookAndAuthor => bookAndAuthor.author.DefaultIfEmpty(),
+                    bookAndAuthor => bookAndAuthor.authors.DefaultIfEmpty(),
                     (bookAndAuthor, author) =>
                     new Book()
                     {
@@ -61,7 +61,7 @@ public sealed class BookModel
 
         using (BookDBContext dbContext = new BookDBContext())
         {
-            ExpressionStarter<Book> predicateBuilder = PredicateBuilder.New<Book>(false);
+            ExpressionStarter<Book> predicateBuilder = PredicateBuilder.New<Book>(true);
             if (!string.IsNullOrWhiteSpace(title))
             {
                 predicateBuilder.Or(x => x.Title.Contains(title));
@@ -77,10 +77,10 @@ public sealed class BookModel
                     dbContext.Authors,
                     book => book.AuthorId,
                     author => author.AuthorId,
-                    (book, author) => new { book, author }
+                    (book, authors) => new { book, authors }
                 )
                 .SelectMany(
-                    bookAndAuthor => bookAndAuthor.author.DefaultIfEmpty(),
+                    bookAndAuthor => bookAndAuthor.authors.DefaultIfEmpty(),
                     (bookAndAuthor, author) =>
                     new Book()
                     {
