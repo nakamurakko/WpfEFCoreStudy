@@ -24,21 +24,26 @@ public sealed class BookModel
 
         using (var dbContext = new BookDBContext())
         {
+            // Left Join で取得。 <https://learn.microsoft.com/ja-jp/dotnet/csharp/linq/standard-query-operators/join-operations#perform-left-outer-joins>
             books = await dbContext.Books
-                 .Join(
-                     dbContext.Authors,
-                     book => book.AuthorId,
-                     author => author.AuthorId,
-                     (book, author) =>
-                         new Book
-                         {
-                             BookId = book.BookId,
-                             Title = book.Title,
-                             AuthorId = book.AuthorId,
-                             Author = book.Author
-                         }
-                 )
-                 .ToListAsync();
+                .GroupJoin(
+                    dbContext.Authors,
+                    book => book.AuthorId,
+                    author => author.AuthorId,
+                    (book, author) => new { book, author }
+                )
+                .SelectMany(
+                    bookAndAuthor => bookAndAuthor.author.DefaultIfEmpty(),
+                    (bookAndAuthor, author) =>
+                    new Book()
+                    {
+                        BookId = bookAndAuthor.book.BookId,
+                        Title = bookAndAuthor.book.Title,
+                        AuthorId = bookAndAuthor.book.AuthorId,
+                        Author = author
+                    }
+                )
+                .ToListAsync();
         }
 
         return books;
