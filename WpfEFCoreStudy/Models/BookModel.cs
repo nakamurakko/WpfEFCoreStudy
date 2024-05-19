@@ -48,6 +48,7 @@ public sealed class BookModel
     /// 本情報を取得する。
     /// </summary>
     /// <param name="title">本のタイトル。部分一致検索する。</param>
+    /// <param name="authorName">著者名。部分一致検索する。</param>
     /// <returns>本情報の一覧。</returns>
     public static async Task<IEnumerable<Book>> GetBooksAsync(string title, string authorName)
     {
@@ -65,6 +66,7 @@ public sealed class BookModel
                 predicateBuilder.Or(x => x.Author.AuthorName.Contains(authorName));
             }
 
+            // Left Join で取得。 <https://learn.microsoft.com/ja-jp/dotnet/csharp/linq/standard-query-operators/join-operations#perform-left-outer-joins>
             books = await dbContext.Books
                 .GroupJoin(
                     dbContext.Authors,
