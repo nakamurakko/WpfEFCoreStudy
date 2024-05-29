@@ -1,0 +1,78 @@
+﻿<Window x:Class="WpfEFCoreStudy.Views.BookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
+        xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        Height="200"
+        Width="400">
+
+    <Window.DataContext>
+        <viewModels:BookWindowViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               Content="タイトル"
+               VerticalContentAlignment="Center" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="0"
+                 IsReadOnly="{Binding IsReadonly}"
+                 Text="{Binding Book.Title}"
+                 VerticalContentAlignment="Center" />
+
+        <Label Grid.Column="0"
+               Grid.Row="1"
+               Content="著者"
+               VerticalContentAlignment="Center" />
+        <Label Grid.Column="1"
+               Grid.Row="1"
+               Content="{Binding Book.Author.AuthorName}">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <!-- 編集時は非表示。 -->
+                        <DataTrigger Binding="{Binding IsReadonly}"
+                                     Value="false">
+                            <Setter Property="Visibility"
+                                    Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <ComboBox Grid.Column="1"
+                  Grid.Row="1"
+                  DisplayMemberPath="AuthorName"
+                  ItemsSource="{Binding Authors}"
+                  SelectedItem="{Binding SelectedAuthor}"
+                  HorizontalContentAlignment="Stretch">
+            <ComboBox.Style>
+                <Style TargetType="ComboBox">
+                    <Style.Triggers>
+                        <!-- ReadOnly 時は非表示。 -->
+                        <DataTrigger Binding="{Binding IsReadonly}"
+                                     Value="true">
+                            <Setter Property="Visibility"
+                                    Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.Style>
+        </ComboBox>
+    </Grid>
+
+</Window>

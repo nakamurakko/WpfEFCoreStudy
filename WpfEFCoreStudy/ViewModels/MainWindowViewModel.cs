@@ -3,9 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using WpfEFCoreStudy.Constants;
 using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.Models;
+using WpfEFCoreStudy.Services;
 using WpfEFCoreStudy.ViewModels.Common;
+using WpfEFCoreStudy.Views;
 
 namespace WpfEFCoreStudy.ViewModels;
 
@@ -85,6 +88,17 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
         {
             this.Books.Add(book);
         }
+    }
+
+    /// <summary>
+    /// 本の詳細を表示する。
+    /// </summary>
+    /// <param name="book">本情報。</param>
+    [RelayCommand]
+    private void ShowBookDetail(Book book)
+    {
+        BookWindowViewModel viewModel = new BookWindowViewModel(book, DisplayMode.ReadOnly);
+        DialogService.GetInstance.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
 }

@@ -15,6 +15,18 @@ public sealed class BookModel
 {
 
     /// <summary>
+    /// 著者の一覧を取得する。
+    /// </summary>
+    /// <returns>著者の一覧。</returns>
+    public static async Task<IEnumerable<Author>> GetAuthorsAsync()
+    {
+        using (BookDBContext dbContext = new BookDBContext())
+        {
+            return await dbContext.Authors.ToListAsync();
+        }
+    }
+
+    /// <summary>
     /// 本情報を取得する。
     /// </summary>
     /// <param name="title">本のタイトル。部分一致検索する。</param>
