@@ -26,10 +26,8 @@ public partial class App : Application
         // データベースファイルを作成する。
         using (BookDBContext dbContext = new BookDBContext())
         {
-            dbContext.Database.EnsureCreated();
-
             // 新規作成だった場合、サンプルデータを登録する。
-            if ((dbContext.Books.Count() == 0) && (dbContext.Authors.Count() == 0))
+            if (dbContext.Database.EnsureCreated())
             {
                 dbContext.Authors.Add(new Author() { AuthorName = "芥川龍之介" });
                 dbContext.Authors.Add(new Author() { AuthorName = "川端康成" });
