@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -32,22 +33,17 @@ public partial class BookWindowViewModel : ObservableObject
 
     public Task Initialization { get; private set; }
 
-    public BookWindowViewModel()
+    public BookWindowViewModel() : this(null, DisplayMode.Add)
     {
-        this.Initialization = this.InitializeAsync();
-
-        this.Book = new Book();
-        this.SelectedAuthor = null;
-        this.SetDisplayMode(DisplayMode.Add);
     }
 
     public BookWindowViewModel(Book book, DisplayMode displayMode)
     {
         this.Initialization = this.InitializeAsync();
 
-        this.Book = book;
+        this.Book = book ?? new Book();
         this.SelectedAuthor = this.Authors.FirstOrDefault(x => x.AuthorId == this.Book?.AuthorId);
-        this.SetDisplayMode(displayMode);
+        this.SetDisplayMode(book == null ? DisplayMode.Add : displayMode);
     }
 
     /// <summary>
@@ -88,6 +84,18 @@ public partial class BookWindowViewModel : ObservableObject
         {
             this.Authors.Add(author);
         }
+    }
+
+    /// <summary>
+    /// 本を追加する。
+    /// </summary>
+    [RelayCommand]
+    private void AddBook()
+    {
+        BookModel.AddBook(this.Book);
+
+        this.Book = new Book();
+        this.SelectedAuthor = null;
     }
 
 }

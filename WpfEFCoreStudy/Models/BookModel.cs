@@ -70,4 +70,18 @@ public sealed class BookModel
         }
     }
 
+    /// <summary>
+    /// 本を追加する。
+    /// </summary>
+    /// <param name="book">本情報。</param>
+    public static void AddBook(Book book)
+    {
+        using (BookDBContext dbContext = new BookDBContext())
+        {
+            dbContext.Books.Add(book);
+
+            dbContext.SaveChanges();
+        }
+    }
+
 }

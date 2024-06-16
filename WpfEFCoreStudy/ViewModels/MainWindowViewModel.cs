@@ -101,4 +101,20 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
         DialogService.GetInstance.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
+    /// <summary>
+    /// 本を追加する。
+    /// </summary>
+    [RelayCommand]
+    private async Task AddBookAsync()
+    {
+        DialogService.GetInstance.ShowDialog<BookWindow, BookWindowViewModel>();
+
+        this.Books.Clear();
+        IEnumerable<Book> books = await BookModel.GetBooksAsync();
+        foreach (Book book in books)
+        {
+            this.Books.Add(book);
+        }
+    }
+
 }
