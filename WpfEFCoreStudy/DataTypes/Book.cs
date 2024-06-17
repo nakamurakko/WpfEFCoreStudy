@@ -9,6 +9,7 @@ namespace WpfEFCoreStudy.DataTypes;
 [Table(nameof(Book))]
 public class Book
 {
+
     public long BookId { get; set; }
 
     [Required]
@@ -17,6 +18,7 @@ public class Book
 
     public long? AuthorId { get; set; }
 
-    [ForeignKey(nameof(AuthorId))]
+    [ForeignKey(nameof(AuthorId)), NotMapped]
     public Author Author { get; set; }
+
 }

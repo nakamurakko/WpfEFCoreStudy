@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.Constants;
 using WpfEFCoreStudy.DataTypes;
@@ -28,9 +27,6 @@ public partial class BookWindowViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
 
-    [ObservableProperty]
-    private Author _selectedAuthor;
-
     public Task Initialization { get; private set; }
 
     public BookWindowViewModel() : this(null, DisplayMode.Add)
@@ -42,7 +38,6 @@ public partial class BookWindowViewModel : ObservableObject
         this.Initialization = this.InitializeAsync();
 
         this.Book = book ?? new Book();
-        this.SelectedAuthor = this.Authors.FirstOrDefault(x => x.AuthorId == this.Book?.AuthorId);
         this.SetDisplayMode(book == null ? DisplayMode.Add : displayMode);
     }
 
@@ -92,10 +87,11 @@ public partial class BookWindowViewModel : ObservableObject
     [RelayCommand]
     private void AddBook()
     {
+        this.Book.AuthorId = this.Book.Author?.AuthorId;
+
         BookModel.AddBook(this.Book);
 
         this.Book = new Book();
-        this.SelectedAuthor = null;
     }
 
 }

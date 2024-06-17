@@ -57,7 +57,7 @@
                       Grid.Row="1"
                       DisplayMemberPath="AuthorName"
                       ItemsSource="{Binding Authors}"
-                      SelectedItem="{Binding SelectedAuthor}"
+                      SelectedItem="{Binding Book.Author}"
                       HorizontalContentAlignment="Stretch">
                 <ComboBox.Style>
                     <Style TargetType="ComboBox">
