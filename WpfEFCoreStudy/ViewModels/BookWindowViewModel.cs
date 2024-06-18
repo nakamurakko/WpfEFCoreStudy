@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WpfEFCoreStudy.Constants;
 using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.Models;
+using WpfEFCoreStudy.Services;
 
 namespace WpfEFCoreStudy.ViewModels;
 
@@ -91,7 +92,7 @@ public partial class BookWindowViewModel : ObservableObject
 
         BookModel.AddBook(this.Book);
 
-        this.Book = new Book();
+        DialogService.GetInstance.TerminateWindow(this);
     }
 
 }
