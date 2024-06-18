@@ -75,7 +75,6 @@
         </Grid>
 
         <Button Command="{Binding AddBookCommand}"
-                HorizontalAlignment="Center"
                 Content="追加">
             <Button.Style>
                 <Style TargetType="Button">

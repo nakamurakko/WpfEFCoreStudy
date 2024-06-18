@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
         xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
         mc:Ignorable="d"
-        Title="AuthorWindow"
-        Height="450"
-        Width="800"
+        Title="{Binding Title}"
+        Height="200"
+        Width="400"
         d:DataContext="{d:DesignInstance viewModels:AuthorWindowViewModel}">
 
     <StackPanel Orientation="Vertical">
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -33,6 +34,7 @@
         <Button Command="{Binding AddAuthorCommand}"
                 HorizontalContentAlignment="Center"
                 Content="追加" />
+
     </StackPanel>
 
 </Window>
