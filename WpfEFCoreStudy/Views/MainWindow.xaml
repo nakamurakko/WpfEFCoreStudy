@@ -24,6 +24,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -56,6 +57,10 @@
             <Button Grid.Column="3"
                     Command="{Binding AddBookCommand}"
                     Content="本を追加" />
+
+            <Button Grid.Column="4"
+                    Command="{Binding AddAuthorCommand}"
+                    Content="著者を追加" />
 
         </Grid>
 

@@ -71,6 +71,20 @@ public sealed class BookModel
     }
 
     /// <summary>
+    /// 著者を追加する。
+    /// </summary>
+    /// <param name="author">著者。</param>
+    public static void AddAuthor(Author author)
+    {
+        using (BookDBContext dbContext = new BookDBContext())
+        {
+            dbContext.Authors.Add(author);
+
+            dbContext.SaveChanges();
+        }
+    }
+
+    /// <summary>
     /// 本を追加する。
     /// </summary>
     /// <param name="book">本情報。</param>
