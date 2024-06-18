@@ -43,7 +43,7 @@ public class DialogService : IDialogService
         if (viewModelWindows.TryGetValue(viewModel, out Window w))
         {
             viewModelWindows.Remove(viewModel);
-            w.Close();
+            w?.Close();
         }
     }
 
