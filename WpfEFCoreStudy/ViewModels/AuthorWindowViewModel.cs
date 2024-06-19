@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.Models;
-using WpfEFCoreStudy.Services;
+using WpfEFCoreStudy.Services.Interfaces;
 
 namespace WpfEFCoreStudy.ViewModels;
 
@@ -18,6 +19,8 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     [ObservableProperty]
     private Author _author = new Author();
 
+    private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
+
     /// <summary>
     /// 著者を追加する。
     /// </summary>
@@ -26,7 +29,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     {
         BookModel.AddAuthor(this.Author);
 
-        DialogService.GetInstance.TerminateWindow(this);
+        this._dialogService.TerminateWindow(this);
     }
 
 }

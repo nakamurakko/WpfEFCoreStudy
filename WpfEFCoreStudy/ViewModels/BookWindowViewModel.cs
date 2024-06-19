@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.Constants;
 using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.Models;
-using WpfEFCoreStudy.Services;
+using WpfEFCoreStudy.Services.Interfaces;
 
 namespace WpfEFCoreStudy.ViewModels;
 
@@ -27,6 +28,8 @@ public partial class BookWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
+
+    private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
 
     public Task Initialization { get; private set; }
 
@@ -92,7 +95,7 @@ public partial class BookWindowViewModel : ObservableObject
 
         BookModel.AddBook(this.Book);
 
-        DialogService.GetInstance.TerminateWindow(this);
+        this._dialogService.TerminateWindow(this);
     }
 
 }

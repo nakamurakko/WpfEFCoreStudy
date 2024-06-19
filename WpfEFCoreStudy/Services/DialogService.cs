@@ -8,8 +8,6 @@ namespace WpfEFCoreStudy.Services;
 public class DialogService : IDialogService
 {
 
-    public static IDialogService GetInstance { get; } = new DialogService();
-
     private static Dictionary<ObservableObject, Window> viewModelWindows = new Dictionary<ObservableObject, Window>();
 
     public void Show<TWindow, TViewModel>(TViewModel viewModel = null)
