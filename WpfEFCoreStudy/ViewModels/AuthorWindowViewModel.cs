@@ -29,7 +29,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     {
         BookModel.AddAuthor(this.Author);
 
-        this._dialogService.TerminateWindow(this);
+        this._dialogService.CloseWindowByViewModel(this);
     }
 
 }

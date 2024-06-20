@@ -95,7 +95,7 @@ public partial class BookWindowViewModel : ObservableObject
 
         BookModel.AddBook(this.Book);
 
-        this._dialogService.TerminateWindow(this);
+        this._dialogService.CloseWindowByViewModel(this);
     }
 
 }

@@ -36,7 +36,7 @@ public class DialogService : IDialogService
         w.ShowDialog();
     }
 
-    public void TerminateWindow(ObservableObject viewModel)
+    public void CloseWindowByViewModel(ObservableObject viewModel)
     {
         if (viewModelWindows.TryGetValue(viewModel, out Window w))
         {

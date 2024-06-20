@@ -33,6 +33,6 @@ public interface IDialogService
     /// ViewModel を指定して画面を終了する。
     /// </summary>
     /// <param name="viewModel">対象の ViewModel。</param>
-    public void TerminateWindow(ObservableObject viewModel);
+    public void CloseWindowByViewModel(ObservableObject viewModel);
 
 }
