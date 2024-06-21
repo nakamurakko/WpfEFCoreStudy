@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using WpfEFCoreStudy.DataTypes;
+using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
 using WpfEFCoreStudy.Services.Interfaces;
 

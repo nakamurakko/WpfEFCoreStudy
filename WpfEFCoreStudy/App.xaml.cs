@@ -2,8 +2,8 @@
 using System;
 using System.Linq;
 using System.Windows;
-using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.DB;
+using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Services;
 using WpfEFCoreStudy.Services.Interfaces;
 

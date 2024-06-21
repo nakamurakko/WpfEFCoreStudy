@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WpfEFCoreStudy.DataTypes;
+using WpfEFCoreStudy.DB.Entities;
 
 namespace WpfEFCoreStudy.DB;
 

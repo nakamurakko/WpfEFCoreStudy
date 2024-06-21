@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.Constants;
-using WpfEFCoreStudy.DataTypes;
+using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
 using WpfEFCoreStudy.Services.Interfaces;
 

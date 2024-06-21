@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WpfEFCoreStudy.DataTypes;
 using WpfEFCoreStudy.DB;
+using WpfEFCoreStudy.DB.Entities;
 
 namespace WpfEFCoreStudy.Models;
 

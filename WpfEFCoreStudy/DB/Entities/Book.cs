@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WpfEFCoreStudy.DataTypes;
+namespace WpfEFCoreStudy.DB.Entities;
 
 /// <summary>
 /// 本クラス。
