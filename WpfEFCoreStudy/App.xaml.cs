@@ -61,13 +61,29 @@ public partial class App : Application
             // 新規作成だった場合、サンプルデータを登録する。
             if (dbContext.Database.EnsureCreated())
             {
-                dbContext.Authors.Add(new Author() { AuthorName = "芥川龍之介" });
-                dbContext.Authors.Add(new Author() { AuthorName = "川端康成" });
-                dbContext.SaveChanges();
+                using (dbContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Author akutagawa = new Author() { AuthorName = "芥川龍之介" };
+                        Author kawabata = new Author() { AuthorName = "川端康成" };
+                        dbContext.Authors.Add(akutagawa);
+                        dbContext.Authors.Add(kawabata);
+                        dbContext.SaveChanges();
 
-                dbContext.Books.Add(new Book() { Title = "蜘蛛の糸", AuthorId = dbContext.Authors.Where(author => author.AuthorName == "芥川龍之介").First().AuthorId });
-                dbContext.Books.Add(new Book() { Title = "雪国", AuthorId = dbContext.Authors.Where(author => author.AuthorName == "川端康成").First().AuthorId });
-                dbContext.SaveChanges();
+                        dbContext.Books.Add(new Book() { Title = "蜘蛛の糸", AuthorId = akutagawa.AuthorId });
+                        dbContext.Books.Add(new Book() { Title = "雪国", AuthorId = kawabata.AuthorId });
+                        dbContext.SaveChanges();
+
+                        dbContext.Database.CommitTransaction();
+                    }
+                    catch (Exception)
+                    {
+                        dbContext.Database.RollbackTransaction();
+
+                        throw;
+                    }
+                }
             }
         }
     }
