@@ -74,13 +74,14 @@ public sealed class BookModel
     /// 著者を追加する。
     /// </summary>
     /// <param name="author">著者。</param>
-    public static void AddAuthor(Author author)
+    /// <returns>書き込んだレコード数。</returns>
+    public static async Task<int> AddAuthor(Author author)
     {
         using (BookDBContext dbContext = new BookDBContext())
         {
-            dbContext.Authors.Add(author);
+            await dbContext.Authors.AddAsync(author);
 
-            dbContext.SaveChanges();
+            return await dbContext.SaveChangesAsync();
         }
     }
 
@@ -88,13 +89,14 @@ public sealed class BookModel
     /// 本を追加する。
     /// </summary>
     /// <param name="book">本情報。</param>
-    public static void AddBook(Book book)
+    /// <returns>書き込んだレコード数。</returns>
+    public static async Task<int> AddBook(Book book)
     {
         using (BookDBContext dbContext = new BookDBContext())
         {
-            dbContext.Books.Add(book);
+            await dbContext.Books.AddAsync(book);
 
-            dbContext.SaveChanges();
+            return await dbContext.SaveChangesAsync();
         }
     }
 

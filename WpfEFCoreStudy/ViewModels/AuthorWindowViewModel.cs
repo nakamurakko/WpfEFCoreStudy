@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
 using WpfEFCoreStudy.Services.Interfaces;
@@ -25,9 +26,9 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     /// 著者を追加する。
     /// </summary>
     [RelayCommand]
-    private void AddAuthor()
+    private async Task AddAuthor()
     {
-        BookModel.AddAuthor(this.Author);
+        await BookModel.AddAuthor(this.Author);
 
         this._dialogService.CloseWindowByViewModel(this);
     }

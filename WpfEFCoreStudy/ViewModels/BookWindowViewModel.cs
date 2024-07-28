@@ -89,11 +89,11 @@ public partial class BookWindowViewModel : ObservableObject
     /// 本を追加する。
     /// </summary>
     [RelayCommand]
-    private void AddBook()
+    private async Task AddBook()
     {
         this.Book.AuthorId = this.Book.Author?.AuthorId;
 
-        BookModel.AddBook(this.Book);
+        await BookModel.AddBook(this.Book);
 
         this._dialogService.CloseWindowByViewModel(this);
     }
