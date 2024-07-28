@@ -79,9 +79,23 @@ public sealed class BookModel
     {
         using (BookDBContext dbContext = new BookDBContext())
         {
-            await dbContext.Authors.AddAsync(author);
+            using (await dbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    await dbContext.Authors.AddAsync(author);
+                    int changeCount = await dbContext.SaveChangesAsync();
+                    await dbContext.Database.CommitTransactionAsync();
 
-            return await dbContext.SaveChangesAsync();
+                    return changeCount;
+                }
+                catch (System.Exception)
+                {
+                    await dbContext.Database.RollbackTransactionAsync();
+
+                    throw;
+                }
+            }
         }
     }
 
@@ -94,9 +108,23 @@ public sealed class BookModel
     {
         using (BookDBContext dbContext = new BookDBContext())
         {
-            await dbContext.Books.AddAsync(book);
+            using (await dbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    await dbContext.Books.AddAsync(book);
+                    int changeCount = await dbContext.SaveChangesAsync();
+                    await dbContext.Database.CommitTransactionAsync();
 
-            return await dbContext.SaveChangesAsync();
+                    return changeCount;
+                }
+                catch (System.Exception)
+                {
+                    await dbContext.Database.RollbackTransactionAsync();
+
+                    throw;
+                }
+            }
         }
     }
 
