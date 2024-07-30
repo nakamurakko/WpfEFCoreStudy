@@ -56,10 +56,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     private async Task InitializeAsync()
     {
         IEnumerable<Book>? books = await BookModel.GetBooksAsync();
-        foreach (Book book in books)
-        {
-            this.Books.Add(book);
-        }
+        this.Books = new ObservableCollection<Book>(books);
     }
 
     /// <summary>
@@ -68,12 +65,8 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     [RelayCommand]
     private async Task SearchBooksAsync()
     {
-        this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
-        foreach (Book book in books)
-        {
-            this.Books.Add(book);
-        }
+        this.Books = new ObservableCollection<Book>(books);
     }
 
     /// <summary>
@@ -85,12 +78,8 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
         this.SearchTitle = "";
         this.SearchAuthorName = "";
 
-        this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync();
-        foreach (Book book in books)
-        {
-            this.Books.Add(book);
-        }
+        this.Books = new ObservableCollection<Book>(books);
     }
 
     /// <summary>
@@ -113,12 +102,8 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     {
         this._dialogService.ShowDialog<AuthorWindow, AuthorWindowViewModel>();
 
-        this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync();
-        foreach (Book book in books)
-        {
-            this.Books.Add(book);
-        }
+        this.Books = new ObservableCollection<Book>(books);
     }
 
     /// <summary>
@@ -129,12 +114,8 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     {
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>();
 
-        this.Books.Clear();
         IEnumerable<Book> books = await BookModel.GetBooksAsync();
-        foreach (Book book in books)
-        {
-            this.Books.Add(book);
-        }
+        this.Books = new ObservableCollection<Book>(books);
     }
 
 }

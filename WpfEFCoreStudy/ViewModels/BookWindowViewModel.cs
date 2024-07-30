@@ -79,10 +79,7 @@ public partial class BookWindowViewModel : ObservableObject
     private async Task InitializeAsync()
     {
         IEnumerable<Author> authors = await BookModel.GetAuthorsAsync();
-        foreach (Author author in authors)
-        {
-            this.Authors.Add(author);
-        }
+        this.Authors = new ObservableCollection<Author>(authors);
     }
 
     /// <summary>
