@@ -20,7 +20,7 @@ public sealed class BookModel
     /// <returns>著者の一覧。</returns>
     public static async Task<IEnumerable<Author>> GetAuthorsAsync()
     {
-        using (BookDBContext dbContext = new BookDBContext())
+        using (BookDBContext dbContext = new())
         {
             return await dbContext.Authors.ToListAsync();
         }
@@ -34,7 +34,7 @@ public sealed class BookModel
     /// <returns>本情報の一覧。</returns>
     public static async Task<IEnumerable<Book>> GetBooksAsync(string title = "", string authorName = "")
     {
-        using (BookDBContext dbContext = new BookDBContext())
+        using (BookDBContext dbContext = new())
         {
             ExpressionStarter<Book> predicateBuilder = PredicateBuilder.New<Book>(true);
             if (!string.IsNullOrWhiteSpace(title))
@@ -77,7 +77,7 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddAuthor(Author author)
     {
-        using (BookDBContext dbContext = new BookDBContext())
+        using (BookDBContext dbContext = new())
         {
             using (await dbContext.Database.BeginTransactionAsync())
             {
@@ -106,7 +106,7 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddBook(Book book)
     {
-        using (BookDBContext dbContext = new BookDBContext())
+        using (BookDBContext dbContext = new())
         {
             using (await dbContext.Database.BeginTransactionAsync())
             {

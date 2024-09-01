@@ -14,11 +14,11 @@ public class Book
 
     [Required]
     [MaxLength(100)]
-    public string Title { get; set; }
+    public string Title { get; set; } = "";
 
     public long? AuthorId { get; set; }
 
     [ForeignKey(nameof(AuthorId)), NotMapped]
-    public Author Author { get; set; }
+    public Author? Author { get; set; }
 
 }

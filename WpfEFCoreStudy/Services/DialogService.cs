@@ -8,13 +8,13 @@ namespace WpfEFCoreStudy.Services;
 public class DialogService : IDialogService
 {
 
-    private static Dictionary<ObservableObject, Window> viewModelWindows = new Dictionary<ObservableObject, Window>();
+    private static readonly Dictionary<ObservableObject, Window> viewModelWindows = new();
 
-    public void Show<TWindow, TViewModel>(TViewModel viewModel = null)
+    public void Show<TWindow, TViewModel>(TViewModel? viewModel = null)
         where TWindow : Window, new()
         where TViewModel : ObservableObject, new()
     {
-        TWindow w = new TWindow();
+        TWindow w = new();
         TViewModel v = viewModel ?? new TViewModel();
         w.DataContext = v;
 
@@ -23,11 +23,11 @@ public class DialogService : IDialogService
         w.Show();
     }
 
-    public void ShowDialog<TWindow, TViewModel>(TViewModel viewModel = null)
+    public void ShowDialog<TWindow, TViewModel>(TViewModel? viewModel = null)
         where TWindow : Window, new()
         where TViewModel : ObservableObject, new()
     {
-        TWindow w = new TWindow();
+        TWindow w = new();
         TViewModel v = viewModel ?? new TViewModel();
         w.DataContext = v;
 
@@ -38,7 +38,7 @@ public class DialogService : IDialogService
 
     public void CloseWindowByViewModel(ObservableObject viewModel)
     {
-        if (viewModelWindows.TryGetValue(viewModel, out Window w))
+        if (viewModelWindows.TryGetValue(viewModel, out Window? w))
         {
             viewModelWindows.Remove(viewModel);
             w?.Close();

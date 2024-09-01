@@ -15,7 +15,7 @@ public interface IDialogService
     /// <typeparam name="TWindow">Window を継承したクラス。</typeparam>
     /// <typeparam name="TViewModel">ObservableObject を継承した ViewModel クラス。</typeparam>
     /// <param name="viewModel">ViewModel インスタンス。 null の場合はメソッド内で生成する。</param>
-    void Show<TWindow, TViewModel>(TViewModel viewModel = null)
+    void Show<TWindow, TViewModel>(TViewModel? viewModel = null)
         where TWindow : Window, new()
         where TViewModel : ObservableObject, new();
 
@@ -25,7 +25,7 @@ public interface IDialogService
     /// <typeparam name="TWindow">Window を継承したクラス。</typeparam>
     /// <typeparam name="TViewModel">ObservableObject を継承した ViewModel クラス。</typeparam>
     /// <param name="viewModel">ViewModel インスタンス。 null の場合はメソッド内で生成する。</param>
-    void ShowDialog<TWindow, TViewModel>(TViewModel viewModel = null)
+    void ShowDialog<TWindow, TViewModel>(TViewModel? viewModel = null)
         where TWindow : Window, new()
         where TViewModel : ObservableObject, new();
 

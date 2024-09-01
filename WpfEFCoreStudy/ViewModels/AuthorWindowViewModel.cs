@@ -18,7 +18,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     private string _title = "著者を追加";
 
     [ObservableProperty]
-    private Author _author = new Author();
+    private Author _author = new();
 
     private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
 

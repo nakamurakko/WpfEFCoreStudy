@@ -23,7 +23,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     private string _title = "WpfEFCoreStudy";
 
     [ObservableProperty]
-    private ObservableCollection<Book> _books = new ObservableCollection<Book>();
+    private ObservableCollection<Book> _books = new();
 
     /// <summary>
     /// 検索対象の本のタイトル。
@@ -89,7 +89,7 @@ public partial class MainWindowViewModel : ObservableObject, IAsyncInitializatio
     [RelayCommand]
     private void ShowBookDetail(Book book)
     {
-        BookWindowViewModel viewModel = new BookWindowViewModel(book, DisplayMode.ReadOnly);
+        BookWindowViewModel viewModel = new(book, DisplayMode.ReadOnly);
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 

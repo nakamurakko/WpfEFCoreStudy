@@ -27,7 +27,7 @@ public partial class BookWindowViewModel : ObservableObject
     private bool _isReadonly = false;
 
     [ObservableProperty]
-    private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
+    private ObservableCollection<Author> _authors = new();
 
     private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
 

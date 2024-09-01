@@ -14,6 +14,6 @@ public class Author
 
     [Required]
     [MaxLength(100)]
-    public string AuthorName { get; set; }
+    public string AuthorName { get; set; } = "";
 
 }
