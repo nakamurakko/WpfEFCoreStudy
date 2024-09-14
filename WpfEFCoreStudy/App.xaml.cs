@@ -43,7 +43,7 @@ public partial class App : Application
     /// </summary>
     private static IServiceProvider ConfigureServices()
     {
-        ServiceCollection services = new ServiceCollection();
+        ServiceCollection services = new();
 
         services.AddSingleton<IDialogService, DialogService>();
 
@@ -56,7 +56,7 @@ public partial class App : Application
     private void CreateDatabase()
     {
         // データベースファイルを作成する。
-        using (BookDBContext dbContext = new BookDBContext())
+        using (BookDBContext dbContext = new())
         {
             // 新規作成だった場合、サンプルデータを登録する。
             if (dbContext.Database.EnsureCreated())
@@ -65,8 +65,8 @@ public partial class App : Application
                 {
                     try
                     {
-                        Author akutagawa = new Author() { AuthorName = "芥川龍之介" };
-                        Author kawabata = new Author() { AuthorName = "川端康成" };
+                        Author akutagawa = new() { AuthorName = "芥川龍之介" };
+                        Author kawabata = new() { AuthorName = "川端康成" };
                         dbContext.Authors.Add(akutagawa);
                         dbContext.Authors.Add(kawabata);
                         dbContext.SaveChanges();
