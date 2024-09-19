@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
         xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:AuthorWindowViewModel}"
         Title="{Binding Title}"
         Height="200"
         Width="400"
-        d:DataContext="{d:DesignInstance viewModels:AuthorWindowViewModel}">
+        WindowStartupLocation="CenterScreen">
 
     <StackPanel Orientation="Vertical">
 
