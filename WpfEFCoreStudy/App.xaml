@@ -5,6 +5,11 @@
              xmlns:views="clr-namespace:WpfEFCoreStudy.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- https://learn.microsoft.com/ja-jp/dotnet/desktop/wpf/whats-new/net90?view=netdesktop-9.0 -->
+                <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
