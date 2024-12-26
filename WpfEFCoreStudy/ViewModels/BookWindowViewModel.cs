@@ -11,7 +11,7 @@ using WpfEFCoreStudy.Services.Interfaces;
 
 namespace WpfEFCoreStudy.ViewModels;
 
-public partial class BookWindowViewModel : ObservableObject
+public sealed partial class BookWindowViewModel : ObservableObject
 {
 
     [ObservableProperty]

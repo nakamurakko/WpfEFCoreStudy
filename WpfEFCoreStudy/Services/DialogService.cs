@@ -5,7 +5,7 @@ using WpfEFCoreStudy.Services.Interfaces;
 
 namespace WpfEFCoreStudy.Services;
 
-public class DialogService : IDialogService
+public sealed class DialogService : IDialogService
 {
 
     private static readonly Dictionary<ObservableObject, Window> viewModelWindows = new();

@@ -16,7 +16,7 @@ namespace WpfEFCoreStudy.ViewModels;
 /// <summary>
 /// MainWindow用ViewModel。
 /// </summary>
-public partial class MainWindowViewModel : ObservableObject, IAsyncInitialization
+public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitialization
 {
 
     [ObservableProperty]

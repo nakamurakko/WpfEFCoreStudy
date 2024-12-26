@@ -7,7 +7,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// 著者クラス。
 /// </summary>
 [Table(nameof(Author))]
-public class Author
+public sealed class Author
 {
 
     public long AuthorId { get; set; }

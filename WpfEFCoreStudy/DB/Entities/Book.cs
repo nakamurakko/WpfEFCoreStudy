@@ -7,7 +7,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// 本クラス。
 /// </summary>
 [Table(nameof(Book))]
-public class Book
+public sealed class Book
 {
 
     public long BookId { get; set; }

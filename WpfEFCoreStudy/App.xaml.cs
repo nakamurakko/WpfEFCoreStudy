@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 using System.Windows;
 using WpfEFCoreStudy.DB;
 using WpfEFCoreStudy.DB.Entities;
@@ -12,7 +11,7 @@ namespace WpfEFCoreStudy;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public sealed partial class App : Application
 {
 
     /// <summary>

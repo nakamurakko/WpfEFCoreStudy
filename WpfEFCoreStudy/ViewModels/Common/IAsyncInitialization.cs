@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace WpfEFCoreStudy.ViewModels.Common;
 
@@ -14,8 +10,10 @@ namespace WpfEFCoreStudy.ViewModels.Common;
 /// </summary>
 public interface IAsyncInitialization
 {
+
     /// <summary>
     /// The result of the asynchronous initialization of this instance.
     /// </summary>
     Task Initialization { get; }
+
 }
