@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WpfEFCoreStudy.DB.Entities;
@@ -15,5 +16,8 @@ public sealed class Author
     [Required]
     [MaxLength(100)]
     public string AuthorName { get; set; } = "";
+
+    [NotMapped]
+    public ICollection<Book> Books { get; set; } = new List<Book>();
 
 }

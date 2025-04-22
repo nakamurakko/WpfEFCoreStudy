@@ -20,4 +20,17 @@ public sealed class BookDBContext : DbContext
 
     public DbSet<Book> Books { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Author>()
+            .HasMany(author => author.Books)
+            .WithOne(book => book.Author)
+            .HasForeignKey(book => book.AuthorId);
+
+        modelBuilder.Entity<Book>()
+            .HasOne(book => book.Author)
+            .WithMany(author => author.Books)
+            .HasForeignKey(book => book.AuthorId);
+    }
+
 }
