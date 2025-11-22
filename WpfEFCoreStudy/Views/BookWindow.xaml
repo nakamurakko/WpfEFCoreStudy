@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
         xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        d:DataContext="{d:DesignInstance viewModels:BookWindowViewModel}"
         Title="{Binding Title}"
         Height="200"
         Width="400"
@@ -54,14 +54,10 @@
                     </Style>
                 </Label.Style>
             </Label>
-            <ComboBox Grid.Column="1"
-                      Grid.Row="1"
-                      DisplayMemberPath="AuthorName"
-                      ItemsSource="{Binding Authors}"
-                      SelectedItem="{Binding Book.Author}"
-                      HorizontalContentAlignment="Stretch">
-                <ComboBox.Style>
-                    <Style TargetType="ComboBox">
+            <StackPanel Grid.Column="1"
+                        Grid.Row="1">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
                         <Style.Triggers>
                             <!-- ReadOnly 時は非表示。 -->
                             <DataTrigger Binding="{Binding IsReadonly}"
@@ -71,8 +67,13 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </ComboBox.Style>
-            </ComboBox>
+                </StackPanel.Style>
+                <ComboBox DisplayMemberPath="AuthorName"
+                          ItemsSource="{Binding Authors}"
+                          SelectedItem="{Binding Book.Author}"
+                          HorizontalContentAlignment="Stretch">
+                </ComboBox>
+            </StackPanel>
         </Grid>
 
         <Button Command="{Binding AddBookCommand}"
