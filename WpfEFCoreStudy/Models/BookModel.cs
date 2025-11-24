@@ -1,5 +1,4 @@
-﻿using LinqKit;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,7 +35,7 @@ public sealed class BookModel
     {
         using (BookDBContext dbContext = new())
         {
-            ExpressionStarter<Book> predicateBuilder = PredicateBuilder.New<Book>(true);
+            LinqKit.ExpressionStarter<Book> predicateBuilder = LinqKit.PredicateBuilder.New<Book>(true);
             if (!string.IsNullOrWhiteSpace(title))
             {
                 predicateBuilder.Or(x => x.Title.Contains(title));
@@ -47,21 +46,39 @@ public sealed class BookModel
             }
 
             // Left Join で取得。 <https://learn.microsoft.com/ja-jp/dotnet/csharp/linq/standard-query-operators/join-operations#perform-left-outer-joins>
+            //return await dbContext.Books
+            //    .GroupJoin(
+            //        dbContext.Authors,
+            //        book => book.AuthorId,
+            //        author => author.AuthorId,
+            //        (book, authors) => new { book, authors }
+            //    )
+            //    .SelectMany(
+            //        bookAndAuthor => bookAndAuthor.authors.DefaultIfEmpty(),
+            //        (bookAndAuthor, author) =>
+            //        new Book()
+            //        {
+            //            BookId = bookAndAuthor.book.BookId,
+            //            Title = bookAndAuthor.book.Title,
+            //            AuthorId = bookAndAuthor.book.AuthorId,
+            //            Author = author
+            //        }
+            //    )
+            //    .Where(predicateBuilder)
+            //    .ToListAsync();
+
+            // .NET 10 以降では LeftJoin を使う。(LinqKit に LeftJoin が存在するため注意する。)
             return await dbContext.Books
-                .GroupJoin(
+                .LeftJoin(
                     dbContext.Authors,
                     book => book.AuthorId,
                     author => author.AuthorId,
-                    (book, authors) => new { book, authors }
-                )
-                .SelectMany(
-                    bookAndAuthor => bookAndAuthor.authors.DefaultIfEmpty(),
-                    (bookAndAuthor, author) =>
+                    (book, author) =>
                     new Book()
                     {
-                        BookId = bookAndAuthor.book.BookId,
-                        Title = bookAndAuthor.book.Title,
-                        AuthorId = bookAndAuthor.book.AuthorId,
+                        BookId = book.BookId,
+                        Title = book.Title,
+                        AuthorId = book.AuthorId,
                         Author = author
                     }
                 )
