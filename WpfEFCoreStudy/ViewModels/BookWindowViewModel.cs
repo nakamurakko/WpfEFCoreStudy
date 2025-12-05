@@ -90,7 +90,7 @@ public sealed partial class BookWindowViewModel : ObservableObject
     {
         this.Book.AuthorId = this.Book.Author?.AuthorId;
 
-        await BookModel.AddBook(this.Book);
+        await BookModel.AddBookAsync(this.Book);
 
         this._dialogService.CloseWindowByViewModel(this);
     }

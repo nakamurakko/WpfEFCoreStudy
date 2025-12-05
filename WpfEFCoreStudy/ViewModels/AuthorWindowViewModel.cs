@@ -28,7 +28,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     [RelayCommand]
     private async Task AddAuthor()
     {
-        await BookModel.AddAuthor(this.Author);
+        await BookModel.AddAuthorAsync(this.Author);
 
         this._dialogService.CloseWindowByViewModel(this);
     }

@@ -92,7 +92,7 @@ public sealed class BookModel
     /// </summary>
     /// <param name="author">著者。</param>
     /// <returns>書き込んだレコード数。</returns>
-    public static async Task<int> AddAuthor(Author author)
+    public static async Task<int> AddAuthorAsync(Author author)
     {
         using (BookDBContext dbContext = new())
         {
@@ -121,7 +121,7 @@ public sealed class BookModel
     /// </summary>
     /// <param name="book">本情報。</param>
     /// <returns>書き込んだレコード数。</returns>
-    public static async Task<int> AddBook(Book book)
+    public static async Task<int> AddBookAsync(Book book)
     {
         using (BookDBContext dbContext = new())
         {
