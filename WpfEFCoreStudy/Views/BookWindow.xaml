@@ -76,12 +76,11 @@
             </StackPanel>
         </Grid>
 
-        <Button Command="{Binding AddBookCommand}"
-                Content="追加">
-            <Button.Style>
-                <Style TargetType="Button">
+        <StackPanel>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <!-- ReadOnly 時は非表示。 -->
+                        <!--ReadOnly 時は非表示。-->
                         <DataTrigger Binding="{Binding IsReadonly}"
                                      Value="true">
                             <Setter Property="Visibility"
@@ -89,8 +88,11 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Button.Style>
-        </Button>
+            </StackPanel.Style>
+            <Button Command="{Binding AddBookCommand}"
+                    Content="追加">
+            </Button>
+        </StackPanel>
 
     </StackPanel>
 
