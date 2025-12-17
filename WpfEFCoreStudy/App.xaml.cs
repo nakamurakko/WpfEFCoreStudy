@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using WpfEFCoreStudy.DB;
@@ -54,8 +56,10 @@ public sealed partial class App : Application
     /// </summary>
     private void CreateDatabase()
     {
+        PooledDbContextFactory<BookDBContext>? dbContextFactory = new(new DbContextOptionsBuilder<BookDBContext>().UseSqlite(BookDBContext.ConnectionString).Options);
+
         // データベースファイルを作成する。
-        using (BookDBContext dbContext = new())
+        using (BookDBContext dbContext = dbContextFactory.CreateDbContext())
         {
             // 新規作成だった場合、サンプルデータを登録する。
             if (dbContext.Database.EnsureCreated())

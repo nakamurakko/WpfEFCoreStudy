@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,13 +14,15 @@ namespace WpfEFCoreStudy.Models;
 public sealed class BookModel
 {
 
+    private static readonly PooledDbContextFactory<BookDBContext> _dbContextFactory = new(new DbContextOptionsBuilder<BookDBContext>().UseSqlite(BookDBContext.ConnectionString).Options);
+
     /// <summary>
     /// 著者の一覧を取得する。
     /// </summary>
     /// <returns>著者の一覧。</returns>
     public static async Task<IEnumerable<Author>> GetAuthorsAsync()
     {
-        using (BookDBContext dbContext = new())
+        using (BookDBContext dbContext = _dbContextFactory.CreateDbContext())
         {
             return await dbContext.Authors.ToListAsync();
         }
@@ -33,7 +36,7 @@ public sealed class BookModel
     /// <returns>本情報の一覧。</returns>
     public static async Task<IEnumerable<Book>> GetBooksAsync(string title = "", string authorName = "")
     {
-        using (BookDBContext dbContext = new())
+        using (BookDBContext dbContext = _dbContextFactory.CreateDbContext())
         {
             LinqKit.ExpressionStarter<Book> predicateBuilder = LinqKit.PredicateBuilder.New<Book>(true);
             if (!string.IsNullOrWhiteSpace(title))
@@ -94,7 +97,7 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddAuthorAsync(Author author)
     {
-        using (BookDBContext dbContext = new())
+        using (BookDBContext dbContext = _dbContextFactory.CreateDbContext())
         {
             using (await dbContext.Database.BeginTransactionAsync())
             {
@@ -123,7 +126,7 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddBookAsync(Book book)
     {
-        using (BookDBContext dbContext = new())
+        using (BookDBContext dbContext = _dbContextFactory.CreateDbContext())
         {
             using (await dbContext.Database.BeginTransactionAsync())
             {
