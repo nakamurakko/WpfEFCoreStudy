@@ -59,7 +59,7 @@ public sealed partial class App : Application
     /// </summary>
     private void CreateDatabase()
     {
-        BookDBContext dbContext = Current.Services.GetRequiredService<BookDBContext>();
+        BookDBContext dbContext = this.Services.GetRequiredService<BookDBContext>();
 
         // 新規作成だった場合、サンプルデータを登録する。
         if (dbContext.Database.EnsureCreated())
