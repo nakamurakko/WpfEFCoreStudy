@@ -14,7 +14,7 @@ namespace WpfEFCoreStudy.Models;
 public sealed class BookModel
 {
 
-    private static IDbContextFactory<BookDBContext> _dbContextFactory { get; } = App.Current.Services.GetRequiredService<IDbContextFactory<BookDBContext>>();
+    private static readonly IDbContextFactory<BookDBContext> _dbContextFactory = App.Current.Services.GetRequiredService<IDbContextFactory<BookDBContext>>();
 
     /// <summary>
     /// 著者の一覧を取得する。
