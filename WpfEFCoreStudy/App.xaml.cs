@@ -59,7 +59,8 @@ public sealed partial class App : Application
     /// </summary>
     private void CreateDatabase()
     {
-        BookDBContext dbContext = this.Services.GetRequiredService<BookDBContext>();
+        IDbContextFactory<BookDBContext> dbContextFactory = this.Services.GetRequiredService<IDbContextFactory<BookDBContext>>();
+        using BookDBContext dbContext = dbContextFactory.CreateDbContext();
 
         // 新規作成だった場合、サンプルデータを登録する。
         if (dbContext.Database.EnsureCreated())
