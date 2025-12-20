@@ -37,7 +37,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     [ObservableProperty]
     private string _searchAuthorName = "";
 
-    private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
+    private readonly IDialogService _dialogService = App.Current.Services.GetRequiredService<IDialogService>();
 
     public Task Initialization { get; private set; }
 

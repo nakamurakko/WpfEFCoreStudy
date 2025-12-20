@@ -29,7 +29,7 @@ public sealed partial class BookWindowViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Author> _authors = new();
 
-    private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
+    private readonly IDialogService _dialogService = App.Current.Services.GetRequiredService<IDialogService>();
 
     public Task Initialization { get; private set; }
 

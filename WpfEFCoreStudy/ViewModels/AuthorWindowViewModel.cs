@@ -20,7 +20,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     [ObservableProperty]
     private Author _author = new();
 
-    private readonly IDialogService _dialogService = App.Current.Services.GetService<IDialogService>();
+    private readonly IDialogService _dialogService = App.Current.Services.GetRequiredService<IDialogService>();
 
     /// <summary>
     /// 著者を追加する。
