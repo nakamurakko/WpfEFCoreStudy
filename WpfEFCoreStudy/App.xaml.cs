@@ -46,10 +46,7 @@ public sealed partial class App : Application
         ServiceCollection services = new();
 
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddPooledDbContextFactory<BookDBContext>(optionsAction =>
-        {
-            optionsAction.UseSqlite("Data Source=database.sqlite");
-        });
+        services.AddPooledDbContextFactory<BookDBContext>(optionsAction => optionsAction.UseSqlite("Data Source=database.sqlite"));
 
         return services.BuildServiceProvider();
     }
