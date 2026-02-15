@@ -129,8 +129,8 @@ public sealed class BookModel
         {
             try
             {
-                //await dbContext.Books.AddAsync(book);
-                await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
+                await dbContext.Books.AddAsync(book);
+                //await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 
