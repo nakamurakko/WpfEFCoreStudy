@@ -35,7 +35,7 @@ public sealed class BookModel
     /// <returns>本情報の一覧。</returns>
     public static async Task<IEnumerable<Book>> GetBooksAsync(string title = "", string authorName = "")
     {
-        using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        await using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
 
         LinqKit.ExpressionStarter<Book> predicateBuilder = LinqKit.PredicateBuilder.New<Book>(true);
         if (!string.IsNullOrWhiteSpace(title))
@@ -95,9 +95,9 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddAuthorAsync(Author author)
     {
-        using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        await using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
 
-        using (await dbContext.Database.BeginTransactionAsync())
+        await using (await dbContext.Database.BeginTransactionAsync())
         {
             try
             {
@@ -123,9 +123,9 @@ public sealed class BookModel
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddBookAsync(Book book)
     {
-        using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        await using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
 
-        using (await dbContext.Database.BeginTransactionAsync())
+        await using (await dbContext.Database.BeginTransactionAsync())
         {
             try
             {
