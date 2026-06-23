@@ -26,10 +26,10 @@ public sealed class BookDBContext : DbContext
 
     public DbSet<Book> Books { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Author>()
-            .HasMany(author => author.Books);
-    }
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    modelBuilder.Entity<Author>()
+    //        .HasMany(author => author.Books);
+    //}
 
 }

@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WpfEFCoreStudy.DB.Entities;
 
 /// <summary>
 /// 著者クラス。
 /// </summary>
-[Table(nameof(Author))]
 public sealed class Author
 {
 
@@ -17,7 +15,6 @@ public sealed class Author
     [MaxLength(100)]
     public string AuthorName { get; set; } = "";
 
-    [NotMapped]
     public ICollection<Book> Books { get; set; } = new List<Book>();
 
 }

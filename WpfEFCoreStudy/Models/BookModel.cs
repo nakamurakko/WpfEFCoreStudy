@@ -69,22 +69,27 @@ public sealed class BookModel
         //    .Where(predicateBuilder)
         //    .ToListAsync();
 
-        // .NET 10 以降では LeftJoin を使う。(LinqKit に LeftJoin が存在するため注意する。)
+        //// .NET 10 以降では LeftJoin を使う。(LinqKit に LeftJoin が存在するため注意する。)
+        //return await dbContext.Books
+        //    .LeftJoin(
+        //        dbContext.Authors,
+        //        book => book.AuthorId,
+        //        author => author.AuthorId,
+        //        (book, author) =>
+        //        new Book()
+        //        {
+        //            BookId = book.BookId,
+        //            Title = book.Title,
+        //            AuthorId = book.AuthorId,
+        //            Author = author
+        //        }
+        //    )
+        //    .Where(predicateBuilder)
+        //    .ToListAsync();
+
+        // QueryableExtensions.Include を使う。
         return await dbContext.Books
-            .LeftJoin(
-                dbContext.Authors,
-                book => book.AuthorId,
-                author => author.AuthorId,
-                (book, author) =>
-                new Book()
-                {
-                    BookId = book.BookId,
-                    Title = book.Title,
-                    AuthorId = book.AuthorId,
-                    Author = author
-                }
-            )
-            .Where(predicateBuilder)
+            .Include(x => x.Author)
             .ToListAsync();
     }
 
