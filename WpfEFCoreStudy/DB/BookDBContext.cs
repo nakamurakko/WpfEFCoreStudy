@@ -9,17 +9,17 @@ namespace WpfEFCoreStudy.DB;
 public sealed class BookDBContext : DbContext
 {
 
-    public BookDBContext(DbContextOptions<BookDBContext> options) : base(options)
-    {
-        // PooledDbContextFactory を使用する場合に必要。
-    }
+    //public BookDBContext(DbContextOptions<BookDBContext> options) : base(options)
+    //{
+    //    // PooledDbContextFactory を使用する場合に必要。
+    //}
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // PooledDbContextFactory を使用しない場合に必要。
         // https://docs.microsoft.com/ja-jp/ef/core/dbcontext-configuration/
         // https://learn.microsoft.com/ja-jp/ef/core/what-is-new/ef-core-7.0/breaking-changes#encrypt-defaults-to-true-for-sql-server-connections
-        //optionsBuilder.UseSqlite("Data Source=database.sqlite");
+        optionsBuilder.UseSqlite("Data Source=database.sqlite");
     }
 
     public DbSet<Author> Authors { get; set; }

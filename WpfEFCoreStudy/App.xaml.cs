@@ -45,7 +45,8 @@ public sealed partial class App : Application
         ServiceCollection services = new();
 
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddPooledDbContextFactory<BookDBContext>(optionsAction => optionsAction.UseSqlite("Data Source=database.sqlite"));
+        // PooledDbContextFactory を使用する場合。
+        //services.AddPooledDbContextFactory<BookDBContext>(optionsAction => optionsAction.UseSqlite("Data Source=database.sqlite"));
 
         return services.BuildServiceProvider();
     }
@@ -55,8 +56,7 @@ public sealed partial class App : Application
     /// </summary>
     private void CreateDatabase()
     {
-        IDbContextFactory<BookDBContext> dbContextFactory = this.Services.GetRequiredService<IDbContextFactory<BookDBContext>>();
-        using BookDBContext dbContext = dbContextFactory.CreateDbContext();
+        using BookDBContext dbContext = new();
 
         // DB のマイグレーション
         // https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate?view=efcore-9.0#microsoft-entityframeworkcore-migrations-imigrator-migrate(system-string)
