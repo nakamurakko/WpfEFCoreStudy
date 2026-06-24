@@ -22,7 +22,7 @@ public sealed class BookModel
     /// <returns>著者の一覧。</returns>
     public static async Task<IEnumerable<Author>> GetAuthorsAsync()
     {
-        using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
+        await using BookDBContext dbContext = await _dbContextFactory.CreateDbContextAsync();
 
         return await dbContext.Authors.ToListAsync();
     }
@@ -134,8 +134,8 @@ public sealed class BookModel
         {
             try
             {
-                await dbContext.Books.AddAsync(book);
-                //await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
+                //await dbContext.Books.AddAsync(book);
+                await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using WpfEFCoreStudy.DB;
-using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Services;
 using WpfEFCoreStudy.Services.Interfaces;
 
@@ -59,33 +58,9 @@ public sealed partial class App : Application
         IDbContextFactory<BookDBContext> dbContextFactory = this.Services.GetRequiredService<IDbContextFactory<BookDBContext>>();
         using BookDBContext dbContext = dbContextFactory.CreateDbContext();
 
-        // 新規作成だった場合、サンプルデータを登録する。
-        if (dbContext.Database.EnsureCreated())
-        {
-            using (dbContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    Author akutagawa = new() { AuthorName = "芥川龍之介" };
-                    Author kawabata = new() { AuthorName = "川端康成" };
-                    dbContext.Authors.Add(akutagawa);
-                    dbContext.Authors.Add(kawabata);
-                    dbContext.SaveChanges();
-
-                    dbContext.Books.Add(new Book() { Title = "蜘蛛の糸", AuthorId = akutagawa.AuthorId });
-                    dbContext.Books.Add(new Book() { Title = "雪国", AuthorId = kawabata.AuthorId });
-                    dbContext.SaveChanges();
-
-                    dbContext.Database.CommitTransaction();
-                }
-                catch (Exception)
-                {
-                    dbContext.Database.RollbackTransaction();
-
-                    throw;
-                }
-            }
-        }
+        // DB のマイグレーション
+        // https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate?view=efcore-9.0#microsoft-entityframeworkcore-migrations-imigrator-migrate(system-string)
+        dbContext.Database.Migrate();
     }
 
 }

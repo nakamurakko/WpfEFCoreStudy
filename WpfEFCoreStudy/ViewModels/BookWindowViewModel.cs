@@ -41,7 +41,7 @@ public sealed partial class BookWindowViewModel : ObservableObject
     {
         this.Initialization = this.InitializeAsync();
 
-        this.Book = book ?? new Book();
+        this.Book = book ?? new();
         this.SetDisplayMode(book == null ? DisplayMode.Add : displayMode);
     }
 
