@@ -15,6 +15,7 @@ WPF と Entity Framework Core 勉強用プロジェクト。
 DB の新規作成、更新に Entity Framework Core を使用する。
 
 * [ツールのインストール](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#installing-the-tools)
-* [dotnet ef migrations add InitialCreate (最初の移行を作成する)](https://learn.microsoft.com/ja-jp/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-first-migration)
-* [dotnet ef migrations add AddTableNameColumnName (新しい移行を追加する)](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-migrations-add)
-* [dotnet ef database update (データベースを最後の移行または指定された移行に更新)](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-database-update)
+* [dotnet ef migrations add InitialCreate --startup-project .\WpfEFCoreStudy (最初の移行を作成する)](https://learn.microsoft.com/ja-jp/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-first-migration)
+* [dotnet ef migrations add AddTableNameColumnName --startup-project .\WpfEFCoreStudy (新しい移行を追加する)](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-migrations-add)
+* [dotnet ef database update --startup-project .\WpfEFCoreStudy (データベースを最後の移行または指定された移行に更新)](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-database-update)
+    * 実行時に [IMigrator.Migrate](https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate) を呼び出しているため、 `dotnet ef database update` は不要。

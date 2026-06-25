@@ -59,7 +59,7 @@ public sealed partial class App : Application
         using BookDBContext dbContext = new();
 
         // DB のマイグレーション
-        // https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate?view=efcore-9.0#microsoft-entityframeworkcore-migrations-imigrator-migrate(system-string)
+        // https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate
         dbContext.Database.Migrate();
     }
 
