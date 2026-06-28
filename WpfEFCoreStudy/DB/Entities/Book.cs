@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace WpfEFCoreStudy.DB.Entities;
@@ -7,7 +8,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// 書籍クラス。
 /// </summary>
 [Comment("書籍")]
-public sealed class Book
+public sealed class Book : IDbTimestamps
 {
 
     /// <summary>書籍 ID</summary>
@@ -23,6 +24,12 @@ public sealed class Book
     /// <summary>著者 ID</summary>
     [Comment("著者 ID")]
     public long? AuthorId { get; set; }
+
+    [Comment("作成日時")]
+    public DateTime? CreatedAt { get; set; }
+
+    [Comment("更新日時")]
+    public DateTime? UpdatedAt { get; set; }
 
     public Author? Author { get; set; }
 
