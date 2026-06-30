@@ -27,7 +27,7 @@
         </Grid>
 
         <Button Command="{Binding AddAuthorCommand}"
-                HorizontalContentAlignment="Center"
+                HorizontalAlignment="Center"
                 Content="追加" />
 
     </StackPanel>

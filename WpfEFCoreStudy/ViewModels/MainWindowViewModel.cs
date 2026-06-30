@@ -26,7 +26,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     private ObservableCollection<Book> _books = new();
 
     /// <summary>
-    /// 検索対象の本のタイトル。
+    /// 検索対象の書籍のタイトル。
     /// </summary>
     [ObservableProperty]
     private string _searchTitle = "";
@@ -60,7 +60,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     }
 
     /// <summary>
-    /// 本を検索する。
+    /// 書籍を検索する。
     /// </summary>
     [RelayCommand]
     private async Task SearchBooksAsync()
@@ -83,13 +83,24 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     }
 
     /// <summary>
-    /// 本の詳細を表示する。
+    /// 書籍の詳細を表示する。
     /// </summary>
-    /// <param name="book">本情報。</param>
+    /// <param name="book">書籍情報。</param>
     [RelayCommand]
     private void ShowBookDetail(Book book)
     {
         BookWindowViewModel viewModel = new(book, DisplayMode.ReadOnly);
+        this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
+    }
+
+    /// <summary>
+    /// 書籍を編集する。
+    /// </summary>
+    /// <param name="book"></param>
+    [RelayCommand]
+    private void EditBookDetail(Book book)
+    {
+        BookWindowViewModel viewModel = new(book, DisplayMode.Edit);
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
@@ -107,7 +118,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     }
 
     /// <summary>
-    /// 本を追加する。
+    /// 書籍を追加する。
     /// </summary>
     [RelayCommand]
     private async Task AddBookAsync()

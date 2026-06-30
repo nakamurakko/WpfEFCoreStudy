@@ -8,7 +8,7 @@ using WpfEFCoreStudy.DB.Entities;
 namespace WpfEFCoreStudy.Models;
 
 /// <summary>
-/// 本DBアクセス用 Model。
+/// 書籍 DB アクセス用 Model。
 /// </summary>
 public sealed class BookModel
 {
@@ -28,11 +28,11 @@ public sealed class BookModel
     }
 
     /// <summary>
-    /// 本情報を取得する。
+    /// 書籍情報を取得する。
     /// </summary>
-    /// <param name="title">本のタイトル。部分一致検索する。</param>
+    /// <param name="title">書籍のタイトル。部分一致検索する。</param>
     /// <param name="authorName">著者名。部分一致検索する。</param>
-    /// <returns>本情報の一覧。</returns>
+    /// <returns>書籍情報の一覧。</returns>
     public static async Task<IEnumerable<Book>> GetBooksAsync(string title = "", string authorName = "")
     {
         await using BookDBContext dbContext = new();
@@ -122,9 +122,9 @@ public sealed class BookModel
     }
 
     /// <summary>
-    /// 本を追加する。
+    /// 書籍を追加する。
     /// </summary>
-    /// <param name="book">本情報。</param>
+    /// <param name="book">書籍情報。</param>
     /// <returns>書き込んだレコード数。</returns>
     public static async Task<int> AddBookAsync(Book book)
     {
@@ -136,6 +136,35 @@ public sealed class BookModel
             {
                 //await dbContext.Books.AddAsync(book);
                 await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
+                int changeCount = await dbContext.SaveChangesAsync();
+                await dbContext.Database.CommitTransactionAsync();
+
+                return changeCount;
+            }
+            catch (System.Exception)
+            {
+                await dbContext.Database.RollbackTransactionAsync();
+
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 書籍を更新する。
+    /// </summary>
+    /// <param name="book">書籍情報。</param>
+    /// <returns>書き込んだレコード数。</returns>
+    public static async Task<int> UpdateBookAsync(Book book)
+    {
+        await using BookDBContext dbContext = new();
+
+        await using (await dbContext.Database.BeginTransactionAsync())
+        {
+            try
+            {
+                dbContext.Books.Update(book);
+                //dbContext.Books.Update(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 
