@@ -8,7 +8,7 @@ namespace WpfEFCoreStudy.DB;
 /// <remarks>
 /// https://learn.microsoft.com/ja-jp/ef/core/logging-events-diagnostics/events
 /// </remarks>
-public interface IDbTimestamps
+public interface IHasDbTimestamps
 {
 
     /// <summary>作成日時</summary>

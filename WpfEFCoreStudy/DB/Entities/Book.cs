@@ -8,7 +8,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// 書籍クラス。
 /// </summary>
 [Comment("書籍")]
-public sealed class Book : IDbTimestamps
+public sealed class Book : IHasDbTimestamps
 {
 
     /// <summary>書籍 ID</summary>

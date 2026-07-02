@@ -52,7 +52,7 @@ public sealed class BookDBContext : DbContext
     /// </remarks>
     private void TimestampsChanged(object? sender, EntityEntryEventArgs e)
     {
-        if (e.Entry.Entity is IDbTimestamps entityWithTimestamps)
+        if (e.Entry.Entity is IHasDbTimestamps entityWithTimestamps)
         {
             switch (e.Entry.State)
             {

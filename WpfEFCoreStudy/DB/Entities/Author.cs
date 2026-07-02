@@ -9,7 +9,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// 著者クラス。
 /// </summary>
 [Comment("著者")]
-public sealed class Author : IDbTimestamps
+public sealed class Author : IHasDbTimestamps
 {
 
     /// <summary>著者 ID</summary>
