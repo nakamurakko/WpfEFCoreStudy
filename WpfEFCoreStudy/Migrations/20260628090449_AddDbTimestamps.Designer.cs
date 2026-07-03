@@ -10,7 +10,7 @@ using WpfEFCoreStudy.DB;
 
 namespace WpfEFCoreStudy.Migrations
 {
-    [DbContext(typeof(BookDBContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260628090449_AddDbTimestamps")]
     partial class AddDbTimestamps
     {

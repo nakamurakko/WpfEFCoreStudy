@@ -6,21 +6,21 @@ using WpfEFCoreStudy.DB.Entities;
 namespace WpfEFCoreStudy.DB;
 
 /// <summary>
-/// 本DBアクセス用 DbContext。
+/// DbContext。
 /// </summary>
-public sealed class BookDBContext : DbContext
+public sealed class ApplicationDbContext : DbContext
 {
 
     /// <summary>
     /// コンストラクター。
     /// </summary>
-    public BookDBContext()
+    public ApplicationDbContext()
     {
         this.ChangeTracker.StateChanged += this.TimestampsChanged;
         this.ChangeTracker.Tracked += this.TimestampsChanged;
     }
 
-    //public BookDBContext(DbContextOptions<BookDBContext> options) : base(options)
+    //public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
     //{
     //    // PooledDbContextFactory を使用する場合に必要。
     //}

@@ -56,7 +56,7 @@ public sealed partial class App : Application
     /// </summary>
     private void CreateDatabase()
     {
-        using BookDBContext dbContext = new();
+        using ApplicationDbContext dbContext = new();
 
         // DB のマイグレーション
         // https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate

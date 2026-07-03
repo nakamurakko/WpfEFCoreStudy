@@ -9,7 +9,7 @@ using WpfEFCoreStudy.DB;
 
 namespace WpfEFCoreStudy.Migrations
 {
-    [DbContext(typeof(BookDBContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class BookDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

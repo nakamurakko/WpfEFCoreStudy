@@ -9,7 +9,7 @@ using WpfEFCoreStudy.DB;
 
 namespace WpfEFCoreStudy.Migrations
 {
-    [DbContext(typeof(BookDBContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260624032348_InitialCreate")]
     partial class InitialCreate
     {

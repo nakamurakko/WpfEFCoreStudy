@@ -9,7 +9,7 @@ using WpfEFCoreStudy.DB;
 
 namespace WpfEFCoreStudy.Migrations
 {
-    [DbContext(typeof(BookDBContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260625121538_AddTableCommentsAndColumnComments")]
     partial class AddTableCommentsAndColumnComments
     {
