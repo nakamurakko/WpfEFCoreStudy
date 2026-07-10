@@ -31,11 +31,10 @@
                    Grid.Row="1"
                    Content="著者"
                    VerticalContentAlignment="Center" />
-            <Label Grid.Column="1"
-                   Grid.Row="1"
-                   Content="{Binding Book.Author.AuthorName}">
-                <Label.Style>
-                    <Style TargetType="Label">
+            <Grid Grid.Column="1"
+                  Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Style.Triggers>
                             <!-- 編集時は非表示。 -->
                             <DataTrigger Binding="{Binding IsReadonly}"
@@ -45,12 +44,14 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Label.Style>
-            </Label>
-            <StackPanel Grid.Column="1"
-                        Grid.Row="1">
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
+                </Grid.Style>
+                <Label Content="{Binding Book.Author.AuthorName}"
+                       VerticalContentAlignment="Center" />
+            </Grid>
+            <Grid Grid.Column="1"
+                  Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Style.Triggers>
                             <!-- ReadOnly 時は非表示。 -->
                             <DataTrigger Binding="{Binding IsReadonly}"
@@ -60,13 +61,12 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </StackPanel.Style>
+                </Grid.Style>
                 <ComboBox DisplayMemberPath="AuthorName"
                           ItemsSource="{Binding Authors}"
                           SelectedItem="{Binding Book.Author}"
-                          HorizontalContentAlignment="Stretch">
-                </ComboBox>
-            </StackPanel>
+                          HorizontalContentAlignment="Stretch" />
+            </Grid>
         </Grid>
 
         <StackPanel HorizontalAlignment="Center">
@@ -95,8 +95,7 @@
                     </Style>
                 </StackPanel.Style>
                 <Button Command="{Binding AddBookCommand}"
-                        Content="追加">
-                </Button>
+                        Content="追加" />
             </StackPanel>
             <StackPanel>
                 <StackPanel.Style>
@@ -111,8 +110,7 @@
                     </Style>
                 </StackPanel.Style>
                 <Button Command="{Binding UpdateBookCommand}"
-                        Content="更新">
-                </Button>
+                        Content="更新" />
             </StackPanel>
         </StackPanel>
 
