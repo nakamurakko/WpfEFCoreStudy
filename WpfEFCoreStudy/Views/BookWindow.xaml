@@ -12,6 +12,55 @@
         Width="400"
         WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <Style x:Key="ReadonlyStyle"
+               TargetType="Grid">
+            <Style.Triggers>
+                <!-- Readonly Style。編集時は非表示。 -->
+                <DataTrigger Binding="{Binding IsReadonly}"
+                             Value="false">
+                    <Setter Property="Visibility"
+                            Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NotReadonlyStyle"
+               TargetType="Grid">
+            <Style.Triggers>
+                <!-- Not Readonly Style。 ReadOnly 時は非表示。 -->
+                <DataTrigger Binding="{Binding IsReadonly}"
+                             Value="true">
+                    <Setter Property="Visibility"
+                            Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisplayModeAddStyle"
+               TargetType="Grid">
+            <Style.Triggers>
+                <!-- 追加時 Style -->
+                <DataTrigger Binding="{Binding DisplayMode}"
+                             Value="Edit">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisplayModeEditStyle"
+               TargetType="Grid">
+            <Style.Triggers>
+                <!-- 編集時 Style -->
+                <DataTrigger Binding="{Binding DisplayMode}"
+                             Value="Add">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <StackPanel>
 
         <Grid ColumnDefinitions="auto, *"
@@ -32,88 +81,33 @@
                    Content="著者"
                    VerticalContentAlignment="Center" />
             <Grid Grid.Column="1"
-                  Grid.Row="1">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <!-- 編集時は非表示。 -->
-                            <DataTrigger Binding="{Binding IsReadonly}"
-                                         Value="false">
-                                <Setter Property="Visibility"
-                                        Value="Hidden" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
+                  Grid.Row="1"
+                  Style="{StaticResource ReadonlyStyle}">
                 <Label Content="{Binding Book.Author.AuthorName}"
                        VerticalContentAlignment="Center" />
             </Grid>
             <Grid Grid.Column="1"
-                  Grid.Row="1">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <!-- ReadOnly 時は非表示。 -->
-                            <DataTrigger Binding="{Binding IsReadonly}"
-                                         Value="true">
-                                <Setter Property="Visibility"
-                                        Value="Hidden" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
+                  Grid.Row="1"
+                  Style="{StaticResource NotReadonlyStyle}">
                 <ComboBox DisplayMemberPath="AuthorName"
                           ItemsSource="{Binding Authors}"
-                          SelectedItem="{Binding Book.Author}"
-                          HorizontalContentAlignment="Stretch" />
+                          HorizontalContentAlignment="Stretch"
+                          SelectedItem="{Binding Book.Author}" />
             </Grid>
         </Grid>
 
-        <StackPanel HorizontalAlignment="Center">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <!--ReadOnly 時は非表示。-->
-                        <DataTrigger Binding="{Binding IsReadonly}"
-                                     Value="true">
-                            <Setter Property="Visibility"
-                                    Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <StackPanel>
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding DisplayMode}"
-                                         Value="Edit">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
-                <Button Command="{Binding AddBookCommand}"
-                        Content="追加" />
+        <Grid Style="{StaticResource NotReadonlyStyle}">
+            <StackPanel HorizontalAlignment="Center">
+                <Grid Style="{StaticResource DisplayModeAddStyle}">
+                    <Button Command="{Binding AddBookCommand}"
+                            Content="追加" />
+                </Grid>
+                <Grid Style="{StaticResource DisplayModeEditStyle}">
+                    <Button Command="{Binding UpdateBookCommand}"
+                            Content="更新" />
+                </Grid>
             </StackPanel>
-            <StackPanel>
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding DisplayMode}"
-                                         Value="Add">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
-                <Button Command="{Binding UpdateBookCommand}"
-                        Content="更新" />
-            </StackPanel>
-        </StackPanel>
-
+        </Grid>
     </StackPanel>
 
 </Window>
