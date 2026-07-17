@@ -24,7 +24,9 @@ public sealed class BookModel
     {
         await using ApplicationDbContext dbContext = new();
 
-        return await dbContext.Authors.ToListAsync();
+        return await dbContext.Authors
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     /// <summary>
@@ -92,6 +94,7 @@ public sealed class BookModel
             .Include(x => x.Author)
             .Include(x => x.BookReview)
             .Where(predicateBuilder)
+            .AsNoTracking()
             .ToListAsync();
     }
 
@@ -108,7 +111,12 @@ public sealed class BookModel
         {
             try
             {
-                await dbContext.Authors.AddAsync(author);
+                await dbContext.Authors.AddAsync(
+                    new Author()
+                    {
+                        AuthorName = author.AuthorName
+                    }
+                );
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 
@@ -136,8 +144,13 @@ public sealed class BookModel
         {
             try
             {
-                //await dbContext.Books.AddAsync(book);
-                await dbContext.Books.AddAsync(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
+                await dbContext.Books.AddAsync(
+                    new Book()
+                    {
+                        Title = book.Title,
+                        AuthorId = book?.Author?.AuthorId
+                    }
+                );
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 
@@ -165,8 +178,14 @@ public sealed class BookModel
         {
             try
             {
-                dbContext.Books.Update(book);
-                //dbContext.Books.Update(new Book() { Title = book.Title, AuthorId = book?.Author?.AuthorId });
+                Book targetBook = await dbContext.Books
+                    .Where(x => x.BookId == book.BookId)
+                    .FirstAsync();
+
+                targetBook.Title = book.Title;
+                targetBook.AuthorId = book.Author?.AuthorId;
+                dbContext.Books.Update(targetBook);
+
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();
 
