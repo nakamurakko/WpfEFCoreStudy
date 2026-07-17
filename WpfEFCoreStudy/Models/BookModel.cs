@@ -90,6 +90,8 @@ public sealed class BookModel
         // QueryableExtensions.Include を使う。
         return await dbContext.Books
             .Include(x => x.Author)
+            .Include(x => x.BookReview)
+            .Where(predicateBuilder)
             .ToListAsync();
     }
 

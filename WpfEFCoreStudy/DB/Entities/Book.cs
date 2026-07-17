@@ -33,4 +33,6 @@ public sealed class Book : IHasDbTimestamps
 
     public Author? Author { get; set; }
 
+    public BookReview? BookReview { get; set; }
+
 }

@@ -29,4 +29,5 @@ public sealed class Author : IHasDbTimestamps
     public DateTime? UpdatedAt { get; set; }
 
     public ICollection<Book> Books { get; set; } = new List<Book>();
+
 }

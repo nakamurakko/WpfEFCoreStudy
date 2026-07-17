@@ -40,6 +40,11 @@ public sealed class ApplicationDbContext : DbContext
             .WithOne(book => book.Author)
             .HasPrincipalKey(author => author.AuthorId)
             .HasForeignKey(book => book.AuthorId);
+
+        modelBuilder.Entity<Book>()
+            .HasOne(book => book.BookReview)
+            .WithOne(bookReview => bookReview.Book)
+            .HasForeignKey<BookReview>(bookReview => bookReview.BookId);
     }
 
     /// <summary>
@@ -68,8 +73,13 @@ public sealed class ApplicationDbContext : DbContext
         }
     }
 
+    /// <summary>著者テーブル。</summary>
     public DbSet<Author> Authors { get; set; }
 
+    /// <summary>書籍テーブル。</summary>
     public DbSet<Book> Books { get; set; }
+
+    /// <summary>書評テーブル。</summary>
+    public DbSet<BookReview> BookReviews { get; set; }
 
 }

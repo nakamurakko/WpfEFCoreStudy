@@ -13,10 +13,11 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
+
+        <!-- Readonly Style。編集時は非表示。 -->
         <Style x:Key="ReadonlyStyle"
                TargetType="Grid">
             <Style.Triggers>
-                <!-- Readonly Style。編集時は非表示。 -->
                 <DataTrigger Binding="{Binding IsReadonly}"
                              Value="false">
                     <Setter Property="Visibility"
@@ -24,10 +25,11 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Not Readonly Style。 ReadOnly 時は非表示。 -->
         <Style x:Key="NotReadonlyStyle"
                TargetType="Grid">
             <Style.Triggers>
-                <!-- Not Readonly Style。 ReadOnly 時は非表示。 -->
                 <DataTrigger Binding="{Binding IsReadonly}"
                              Value="true">
                     <Setter Property="Visibility"
@@ -36,10 +38,10 @@
             </Style.Triggers>
         </Style>
 
+        <!-- 追加時 Style -->
         <Style x:Key="DisplayModeAddStyle"
                TargetType="Grid">
             <Style.Triggers>
-                <!-- 追加時 Style -->
                 <DataTrigger Binding="{Binding DisplayMode}"
                              Value="Edit">
                     <Setter Property="Visibility"
@@ -48,10 +50,10 @@
             </Style.Triggers>
         </Style>
 
+        <!-- 編集時 Style -->
         <Style x:Key="DisplayModeEditStyle"
                TargetType="Grid">
             <Style.Triggers>
-                <!-- 編集時 Style -->
                 <DataTrigger Binding="{Binding DisplayMode}"
                              Value="Add">
                     <Setter Property="Visibility"
@@ -59,10 +61,10 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
     </Window.Resources>
 
     <StackPanel>
-
         <Grid ColumnDefinitions="auto, *"
               RowDefinitions="auto, auto">
 
