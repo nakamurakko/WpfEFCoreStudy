@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -122,7 +123,7 @@ public sealed class BookModel
 
                 return changeCount;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 await dbContext.Database.RollbackTransactionAsync();
 
@@ -156,7 +157,7 @@ public sealed class BookModel
 
                 return changeCount;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 await dbContext.Database.RollbackTransactionAsync();
 
@@ -191,7 +192,7 @@ public sealed class BookModel
 
                 return changeCount;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 await dbContext.Database.RollbackTransactionAsync();
 
