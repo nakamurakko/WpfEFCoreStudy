@@ -11,7 +11,7 @@ namespace WpfEFCoreStudy.Models;
 /// <summary>
 /// 書籍 DB アクセス用 Model。
 /// </summary>
-public sealed class BookModel
+public static class BookModel
 {
 
     // PooledDbContextFactory を使用する場合。
@@ -21,7 +21,7 @@ public sealed class BookModel
     /// 著者の一覧を取得する。
     /// </summary>
     /// <returns>著者の一覧。</returns>
-    public static async Task<IEnumerable<Author>> GetAuthorsAsync()
+    public static async Task<List<Author>> GetAuthorsAsync()
     {
         await using ApplicationDbContext dbContext = new();
 
@@ -33,10 +33,27 @@ public sealed class BookModel
     /// <summary>
     /// 書籍情報を取得する。
     /// </summary>
+    /// <param name="bookId">書籍 ID。</param>
+    /// <returns>書籍情報</returns>
+    public static async Task<Book> GetBookByIdAsync(long bookId)
+    {
+        await using ApplicationDbContext dbContext = new();
+
+        return await dbContext.Books
+            .Include(x => x.Author)
+            .Include(x => x.BookReview)
+            .Where(x => x.BookId == bookId)
+            .AsNoTracking()
+            .FirstAsync();
+    }
+
+    /// <summary>
+    /// 書籍情報を取得する。
+    /// </summary>
     /// <param name="title">書籍のタイトル。部分一致検索する。</param>
     /// <param name="authorName">著者名。部分一致検索する。</param>
     /// <returns>書籍情報の一覧。</returns>
-    public static async Task<IEnumerable<Book>> GetBooksAsync(string title = "", string authorName = "")
+    public static async Task<List<Book>> GetBooksAsync(string title = "", string authorName = "")
     {
         await using ApplicationDbContext dbContext = new();
 
@@ -186,6 +203,47 @@ public sealed class BookModel
                 targetBook.Title = book.Title;
                 targetBook.AuthorId = book.Author?.AuthorId;
                 dbContext.Books.Update(targetBook);
+
+                int changeCount = await dbContext.SaveChangesAsync();
+                await dbContext.Database.CommitTransactionAsync();
+
+                return changeCount;
+            }
+            catch (Exception)
+            {
+                await dbContext.Database.RollbackTransactionAsync();
+
+                throw;
+            }
+        }
+    }
+
+    public static async Task<int> UpdateBookReviewAsync(long bookId, BookReview bookReview)
+    {
+        await using ApplicationDbContext dbContext = new();
+
+        await using (await dbContext.Database.BeginTransactionAsync())
+        {
+            try
+            {
+                BookReview? targetBookReview = await dbContext.BookReviews
+                    .Where(x => x.BookId == bookId)
+                    .FirstOrDefaultAsync();
+
+                if (targetBookReview == null)
+                {
+                    targetBookReview = new()
+                    {
+                        BookId = bookId,
+                        BookReviewContent = bookReview.BookReviewContent,
+                    };
+                    await dbContext.AddAsync(targetBookReview);
+                }
+                else
+                {
+                    targetBookReview.BookReviewContent = bookReview.BookReviewContent;
+                    dbContext.BookReviews.Update(targetBookReview);
+                }
 
                 int changeCount = await dbContext.SaveChangesAsync();
                 await dbContext.Database.CommitTransactionAsync();

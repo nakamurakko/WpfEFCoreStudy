@@ -55,7 +55,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     /// <returns><see cref="Task"/></returns>
     private async Task InitializeAsync()
     {
-        IEnumerable<Book>? books = await BookModel.GetBooksAsync();
+        List<Book>? books = await BookModel.GetBooksAsync();
         this.Books = new ObservableCollection<Book>(books);
     }
 
@@ -65,7 +65,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     [RelayCommand]
     private async Task SearchBooksAsync()
     {
-        IEnumerable<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
+        List<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
         this.Books = new ObservableCollection<Book>(books);
     }
 
@@ -78,7 +78,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
         this.SearchTitle = "";
         this.SearchAuthorName = "";
 
-        IEnumerable<Book> books = await BookModel.GetBooksAsync();
+        List<Book> books = await BookModel.GetBooksAsync();
         this.Books = new ObservableCollection<Book>(books);
     }
 
@@ -113,7 +113,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     {
         this._dialogService.ShowDialog<AuthorWindow, AuthorWindowViewModel>();
 
-        IEnumerable<Book> books = await BookModel.GetBooksAsync();
+        List<Book> books = await BookModel.GetBooksAsync();
         this.Books = new ObservableCollection<Book>(books);
     }
 
@@ -125,8 +125,19 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     {
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>();
 
-        IEnumerable<Book> books = await BookModel.GetBooksAsync();
+        List<Book> books = await BookModel.GetBooksAsync();
         this.Books = new ObservableCollection<Book>(books);
+    }
+
+    /// <summary>
+    /// 書評を編集する。
+    /// </summary>
+    /// <param name="book"></param>
+    [RelayCommand]
+    private void EditBookReview(Book book)
+    {
+        BookReviewWindowViewModel viewModel = new(book.BookId);
+        this._dialogService.ShowDialog<BookReviewWindow, BookReviewWindowViewModel>(viewModel);
     }
 
 }
