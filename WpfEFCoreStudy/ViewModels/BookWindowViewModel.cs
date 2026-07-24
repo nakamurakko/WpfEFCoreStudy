@@ -41,9 +41,9 @@ public sealed partial class BookWindowViewModel : ObservableObject
     {
     }
 
-    public BookWindowViewModel(Book? book, DisplayMode displayMode)
+    public BookWindowViewModel(long? bookId, DisplayMode displayMode)
     {
-        this.Initialization = this.InitializeAsync(book, displayMode);
+        this.Initialization = this.InitializeAsync(bookId, displayMode);
     }
 
     /// <summary>
@@ -77,22 +77,22 @@ public sealed partial class BookWindowViewModel : ObservableObject
     /// 非同期で初期化する。
     /// </summary>
     /// <returns><see cref="Task"/></returns>
-    private async Task InitializeAsync(Book? book, DisplayMode displayMode)
+    private async Task InitializeAsync(long? bookId, DisplayMode displayMode)
     {
         List<Author> authors = await BookModel.GetAuthorsAsync();
         this.Authors = new ObservableCollection<Author>(authors);
 
-        if (book == null)
+        if (bookId.HasValue)
         {
-            this.Book = new();
+            this.Book = await BookModel.GetBookByIdAsync(bookId.Value);
+            // ComboBox の選択値と一致させるため、一覧のインスタンスを設定する。
+            this.Book.Author = this.Authors.FirstOrDefault(x => x.AuthorId == bookId);
         }
         else
         {
-            this.Book = await BookModel.GetBookByIdAsync(book.BookId);
-            // ComboBox の選択値と一致させるため、一覧のインスタンスを設定する。
-            this.Book.Author = this.Authors.FirstOrDefault(x => x.AuthorId == book.AuthorId);
+            this.Book = new();
         }
-        this.SetDisplayMode(book == null ? DisplayMode.Add : displayMode);
+        this.SetDisplayMode(bookId == null ? DisplayMode.Add : displayMode);
     }
 
     /// <summary>

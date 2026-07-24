@@ -89,7 +89,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     [RelayCommand]
     private void ShowBookDetail(Book book)
     {
-        BookWindowViewModel viewModel = new(book, DisplayMode.ReadOnly);
+        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.ReadOnly);
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
@@ -100,7 +100,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     [RelayCommand]
     private void EditBookDetail(Book book)
     {
-        BookWindowViewModel viewModel = new(book, DisplayMode.Edit);
+        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.Edit);
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
