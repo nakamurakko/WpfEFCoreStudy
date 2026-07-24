@@ -56,52 +56,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     private async Task InitializeAsync()
     {
         List<Book>? books = await BookModel.GetBooksAsync();
-        this.Books = new ObservableCollection<Book>(books);
-    }
-
-    /// <summary>
-    /// 書籍を検索する。
-    /// </summary>
-    [RelayCommand]
-    private async Task SearchBooksAsync()
-    {
-        List<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
-        this.Books = new ObservableCollection<Book>(books);
-    }
-
-    /// <summary>
-    /// 検索結果をクリアする。
-    /// </summary>
-    [RelayCommand]
-    private async Task ClearSearchResultAsync()
-    {
-        this.SearchTitle = "";
-        this.SearchAuthorName = "";
-
-        List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new ObservableCollection<Book>(books);
-    }
-
-    /// <summary>
-    /// 書籍の詳細を表示する。
-    /// </summary>
-    /// <param name="book">書籍情報。</param>
-    [RelayCommand]
-    private void ShowBookDetail(Book book)
-    {
-        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.ReadOnly);
-        this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
-    }
-
-    /// <summary>
-    /// 書籍を編集する。
-    /// </summary>
-    /// <param name="book"></param>
-    [RelayCommand]
-    private void EditBookDetail(Book book)
-    {
-        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.Edit);
-        this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
+        this.Books = new(books);
     }
 
     /// <summary>
@@ -114,7 +69,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
         this._dialogService.ShowDialog<AuthorWindow, AuthorWindowViewModel>();
 
         List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new ObservableCollection<Book>(books);
+        this.Books = new(books);
     }
 
     /// <summary>
@@ -126,18 +81,63 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>();
 
         List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new ObservableCollection<Book>(books);
+        this.Books = new(books);
+    }
+
+    /// <summary>
+    /// 検索結果をクリアする。
+    /// </summary>
+    [RelayCommand]
+    private async Task ClearSearchResultAsync()
+    {
+        this.SearchTitle = "";
+        this.SearchAuthorName = "";
+
+        List<Book> books = await BookModel.GetBooksAsync();
+        this.Books = new(books);
+    }
+
+    /// <summary>
+    /// 書籍を編集する。
+    /// </summary>
+    /// <param name="book"></param>
+    [RelayCommand]
+    private void EditBook(Book book)
+    {
+        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.Edit);
+        this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
     /// <summary>
     /// 書評を編集する。
     /// </summary>
-    /// <param name="book"></param>
+    /// <param name="book">書籍情報。</param>
     [RelayCommand]
     private void EditBookReview(Book book)
     {
         BookReviewWindowViewModel viewModel = new(book.BookId);
         this._dialogService.ShowDialog<BookReviewWindow, BookReviewWindowViewModel>(viewModel);
+    }
+
+    /// <summary>
+    /// 書籍を検索する。
+    /// </summary>
+    [RelayCommand]
+    private async Task SearchBooksAsync()
+    {
+        List<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
+        this.Books = new(books);
+    }
+
+    /// <summary>
+    /// 書籍の詳細を表示する。
+    /// </summary>
+    /// <param name="book">書籍情報。</param>
+    [RelayCommand]
+    private void ShowBook(Book book)
+    {
+        BookWindowViewModel viewModel = new(book.BookId, DisplayMode.ReadOnly);
+        this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
     }
 
 }
