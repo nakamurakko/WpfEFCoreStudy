@@ -12,6 +12,9 @@ using WpfEFCoreStudy.Services.Interfaces;
 
 namespace WpfEFCoreStudy.ViewModels;
 
+/// <summary>
+/// BookWindow 用 ViewModel。
+/// </summary>
 public sealed partial class BookWindowViewModel : ObservableObject
 {
 
@@ -96,7 +99,7 @@ public sealed partial class BookWindowViewModel : ObservableObject
     /// 書籍を追加する。
     /// </summary>
     [RelayCommand]
-    private async Task AddBook()
+    private async Task AddBookAsync()
     {
         this.Book!.AuthorId = this.Book.Author?.AuthorId;
 
@@ -110,7 +113,7 @@ public sealed partial class BookWindowViewModel : ObservableObject
     /// </summary>
     /// <returns></returns>
     [RelayCommand]
-    private async Task UpdateBook()
+    private async Task UpdateBookAsync()
     {
         await BookModel.UpdateBookAsync(this.Book!);
 

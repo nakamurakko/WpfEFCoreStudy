@@ -3,9 +3,9 @@
 namespace WpfEFCoreStudy.Views;
 
 /// <summary>
-/// BookReviewWindow.xaml の相互作用ロジック
+/// 書評 Window。
 /// </summary>
-public partial class BookReviewWindow : Window
+public sealed partial class BookReviewWindow : Window
 {
 
     public BookReviewWindow()

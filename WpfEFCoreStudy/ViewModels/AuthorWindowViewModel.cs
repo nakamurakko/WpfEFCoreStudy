@@ -26,7 +26,7 @@ public sealed partial class AuthorWindowViewModel : ObservableObject
     /// 著者を追加する。
     /// </summary>
     [RelayCommand]
-    private async Task AddAuthor()
+    private async Task AddAuthorAsync()
     {
         await BookModel.AddAuthorAsync(this.Author);
 

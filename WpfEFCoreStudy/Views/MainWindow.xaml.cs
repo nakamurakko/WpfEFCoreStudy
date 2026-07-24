@@ -7,8 +7,10 @@ namespace WpfEFCoreStudy.Views;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+
     public MainWindow()
     {
         this.InitializeComponent();
     }
+
 }
