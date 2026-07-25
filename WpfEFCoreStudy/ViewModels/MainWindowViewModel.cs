@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.Constants;
@@ -55,8 +54,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     /// <returns><see cref="Task"/></returns>
     private async Task InitializeAsync()
     {
-        List<Book>? books = await BookModel.GetBooksAsync();
-        this.Books = new(books);
+        this.Books = new(await BookModel.GetBooksAsync());
     }
 
     /// <summary>
@@ -68,8 +66,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     {
         this._dialogService.ShowDialog<AuthorWindow, AuthorWindowViewModel>();
 
-        List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new(books);
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
@@ -80,8 +77,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     {
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>();
 
-        List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new(books);
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
@@ -93,8 +89,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
         this.SearchTitle = "";
         this.SearchAuthorName = "";
 
-        List<Book> books = await BookModel.GetBooksAsync();
-        this.Books = new(books);
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
@@ -102,10 +97,12 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     /// </summary>
     /// <param name="book"></param>
     [RelayCommand]
-    private void EditBook(Book book)
+    private async Task EditBookAsync(Book book)
     {
         BookWindowViewModel viewModel = new(book.BookId, DisplayMode.Edit);
         this._dialogService.ShowDialog<BookWindow, BookWindowViewModel>(viewModel);
+
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
@@ -113,10 +110,12 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     /// </summary>
     /// <param name="book">書籍情報。</param>
     [RelayCommand]
-    private void EditBookReview(Book book)
+    private async Task EditBookReviewAsync(Book book)
     {
         BookReviewWindowViewModel viewModel = new(book.BookId);
         this._dialogService.ShowDialog<BookReviewWindow, BookReviewWindowViewModel>(viewModel);
+
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
@@ -125,8 +124,7 @@ public sealed partial class MainWindowViewModel : ObservableObject, IAsyncInitia
     [RelayCommand]
     private async Task SearchBooksAsync()
     {
-        List<Book> books = await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName);
-        this.Books = new(books);
+        this.Books = new(await BookModel.GetBooksAsync(this.SearchTitle, this.SearchAuthorName));
     }
 
     /// <summary>
