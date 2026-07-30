@@ -73,10 +73,10 @@
 
         </Grid>
 
-        <ListView Grid.Row="1"
-                  HorizontalContentAlignment="Stretch"
-                  ItemsSource="{Binding Books}">
-            <ListView.ItemTemplate>
+        <ItemsControl Grid.Row="1"
+                      HorizontalContentAlignment="Stretch"
+                      ItemsSource="{Binding Books}">
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="LightGray"
                             BorderThickness="0.5"
@@ -153,8 +153,8 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
     </Grid>
 
