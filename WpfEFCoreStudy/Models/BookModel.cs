@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,32 +121,28 @@ public static class BookModel
     /// 著者を追加する。
     /// </summary>
     /// <param name="author">著者。</param>
-    /// <returns>書き込んだレコード数。</returns>
-    public static async Task<int> AddAuthorAsync(Author author)
+    /// <returns></returns>
+    public static async Task AddAuthorAsync(Author author)
     {
         await using ApplicationDbContext dbContext = new();
 
-        await using (await dbContext.Database.BeginTransactionAsync())
+        await using IDbContextTransaction transaction = await dbContext.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                await dbContext.Authors.AddAsync(
-                    new Author()
-                    {
-                        AuthorName = author.AuthorName
-                    }
-                );
-                int changeCount = await dbContext.SaveChangesAsync();
-                await dbContext.Database.CommitTransactionAsync();
+            await dbContext.Authors.AddAsync(
+                new Author()
+                {
+                    AuthorName = author.AuthorName
+                }
+            );
+            await dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
 
-                return changeCount;
-            }
-            catch (Exception)
-            {
-                await dbContext.Database.RollbackTransactionAsync();
-
-                throw;
-            }
+            throw;
         }
     }
 
@@ -153,33 +150,29 @@ public static class BookModel
     /// 書籍を追加する。
     /// </summary>
     /// <param name="book">書籍情報。</param>
-    /// <returns>書き込んだレコード数。</returns>
-    public static async Task<int> AddBookAsync(Book book)
+    /// <returns></returns>
+    public static async Task AddBookAsync(Book book)
     {
         await using ApplicationDbContext dbContext = new();
 
-        await using (await dbContext.Database.BeginTransactionAsync())
+        await using IDbContextTransaction transaction = await dbContext.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                await dbContext.Books.AddAsync(
-                    new Book()
-                    {
-                        Title = book.Title,
-                        AuthorId = book?.Author?.AuthorId
-                    }
-                );
-                int changeCount = await dbContext.SaveChangesAsync();
-                await dbContext.Database.CommitTransactionAsync();
+            await dbContext.Books.AddAsync(
+                new Book()
+                {
+                    Title = book.Title,
+                    AuthorId = book?.Author?.AuthorId,
+                }
+            );
+            await dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
 
-                return changeCount;
-            }
-            catch (Exception)
-            {
-                await dbContext.Database.RollbackTransactionAsync();
-
-                throw;
-            }
+            throw;
         }
     }
 
@@ -187,75 +180,73 @@ public static class BookModel
     /// 書籍を更新する。
     /// </summary>
     /// <param name="book">書籍情報。</param>
-    /// <returns>書き込んだレコード数。</returns>
-    public static async Task<int> UpdateBookAsync(Book book)
+    /// <returns></returns>
+    public static async Task UpdateBookAsync(Book book)
     {
         await using ApplicationDbContext dbContext = new();
 
-        await using (await dbContext.Database.BeginTransactionAsync())
+        await using IDbContextTransaction transaction = await dbContext.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                Book targetBook = await dbContext.Books
-                    .Where(x => x.BookId == book.BookId)
-                    .FirstAsync();
+            Book targetBook = await dbContext.Books
+                .Where(x => x.BookId == book.BookId)
+                .FirstAsync();
 
-                targetBook.Title = book.Title;
-                targetBook.AuthorId = book.Author?.AuthorId;
-                dbContext.Books.Update(targetBook);
+            targetBook.Title = book.Title;
+            targetBook.AuthorId = book.Author?.AuthorId;
+            dbContext.Books.Update(targetBook);
 
-                int changeCount = await dbContext.SaveChangesAsync();
-                await dbContext.Database.CommitTransactionAsync();
+            await dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
 
-                return changeCount;
-            }
-            catch (Exception)
-            {
-                await dbContext.Database.RollbackTransactionAsync();
-
-                throw;
-            }
+            throw;
         }
     }
 
-    public static async Task<int> UpdateBookReviewAsync(long bookId, BookReview bookReview)
+    /// <summary>
+    /// 書評を更新する。
+    /// </summary>
+    /// <param name="bookId">書籍 ID。</param>
+    /// <param name="bookReview">書評。</param>
+    /// <returns></returns>
+    public static async Task UpdateBookReviewAsync(long bookId, BookReview bookReview)
     {
         await using ApplicationDbContext dbContext = new();
 
-        await using (await dbContext.Database.BeginTransactionAsync())
+        await using IDbContextTransaction transaction = await dbContext.Database.BeginTransactionAsync();
+        try
         {
-            try
+            BookReview? targetBookReview = await dbContext.BookReviews
+                .Where(x => x.BookId == bookId)
+                .FirstOrDefaultAsync();
+
+            if (targetBookReview == null)
             {
-                BookReview? targetBookReview = await dbContext.BookReviews
-                    .Where(x => x.BookId == bookId)
-                    .FirstOrDefaultAsync();
-
-                if (targetBookReview == null)
+                targetBookReview = new()
                 {
-                    targetBookReview = new()
-                    {
-                        BookId = bookId,
-                        BookReviewContent = bookReview.BookReviewContent,
-                    };
-                    await dbContext.AddAsync(targetBookReview);
-                }
-                else
-                {
-                    targetBookReview.BookReviewContent = bookReview.BookReviewContent;
-                    dbContext.BookReviews.Update(targetBookReview);
-                }
-
-                int changeCount = await dbContext.SaveChangesAsync();
-                await dbContext.Database.CommitTransactionAsync();
-
-                return changeCount;
+                    BookId = bookId,
+                    BookReviewContent = bookReview.BookReviewContent,
+                };
+                await dbContext.AddAsync(targetBookReview);
             }
-            catch (Exception)
+            else
             {
-                await dbContext.Database.RollbackTransactionAsync();
-
-                throw;
+                targetBookReview.BookReviewContent = bookReview.BookReviewContent;
+                dbContext.BookReviews.Update(targetBookReview);
             }
+
+            await dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+
+            throw;
         }
     }
 
