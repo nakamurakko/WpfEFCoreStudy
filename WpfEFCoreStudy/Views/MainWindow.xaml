@@ -25,7 +25,7 @@
                TargetType="Border">
             <Style.Setters>
                 <Setter Property="BorderBrush"
-                        Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                        Value="{StaticResource {x:Static SystemColors.ControlBrushKey}}" />
                 <Setter Property="BorderThickness"
                         Value="0.5" />
                 <Setter Property="Margin"
@@ -78,9 +78,10 @@
                       ItemsSource="{Binding Books}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="LightGray"
+                    <Border BorderBrush="{StaticResource {x:Static SystemColors.ControlBrushKey}}"
                             BorderThickness="0.5"
                             CornerRadius="5"
+                            Margin="5"
                             Padding="5">
                         <Grid ColumnDefinitions="*, auto">
                             <Grid Grid.Column="0"
