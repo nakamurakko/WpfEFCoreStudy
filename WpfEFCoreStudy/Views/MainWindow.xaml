@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
         xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
         Title="{Binding Title}">
 
     <Window.DataContext>
