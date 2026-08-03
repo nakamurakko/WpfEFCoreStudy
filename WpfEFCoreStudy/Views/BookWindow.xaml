@@ -16,7 +16,7 @@
 
         <!-- Readonly Style。編集時は非表示。 -->
         <Style x:Key="ReadonlyStyle"
-               TargetType="Grid">
+               TargetType="{x:Type Grid}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsReadonly}"
                              Value="false">
@@ -28,7 +28,7 @@
 
         <!-- Not Readonly Style。 ReadOnly 時は非表示。 -->
         <Style x:Key="NotReadonlyStyle"
-               TargetType="Grid">
+               TargetType="{x:Type Grid}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsReadonly}"
                              Value="true">
@@ -40,7 +40,7 @@
 
         <!-- 追加時 Style -->
         <Style x:Key="DisplayModeAddStyle"
-               TargetType="Grid">
+               TargetType="{x:Type Grid}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DisplayMode}"
                              Value="Edit">
@@ -52,7 +52,7 @@
 
         <!-- 編集時 Style -->
         <Style x:Key="DisplayModeEditStyle"
-               TargetType="Grid">
+               TargetType="{x:Type Grid}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding DisplayMode}"
                              Value="Add">
