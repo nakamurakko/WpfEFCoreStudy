@@ -18,6 +18,6 @@ DB の新規作成、更新に Entity Framework Core を使用する。
 
 * [ツールのインストール](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#installing-the-tools)
 * [dotnet ef migrations add InitialCreate](https://learn.microsoft.com/ja-jp/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-first-migration) --startup-project .\WpfEFCoreStudy (最初の移行を作成する)
-* [dotnet ef migrations add \<AddTableNameColumnName\>](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-migrations-add) --startup-project .\WpfEFCoreStudy (新しい移行を追加する)
-* [dotnet ef database update](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-database-update) --startup-project .\WpfEFCoreStudy (データベースを最後の移行または指定された移行に更新)
+* [dotnet ef migrations add \<AddTableNameColumnName\>](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-migrations-add) --startup-project .\WpfEFCoreStudy (新しい項目を追加する)
+* [dotnet ef database update](https://learn.microsoft.com/ja-jp/ef/core/cli/dotnet#dotnet-ef-database-update) --startup-project .\WpfEFCoreStudy (データベースを更新)
     * 実行時に [IMigrator.Migrate](https://learn.microsoft.com/ja-jp/dotnet/api/microsoft.entityframeworkcore.migrations.imigrator.migrate) を呼び出しているため、 `dotnet ef database update` は不要。
