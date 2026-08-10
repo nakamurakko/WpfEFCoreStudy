@@ -7,6 +7,7 @@ namespace WpfEFCoreStudy.DB.Entities;
 /// <summary>
 /// 書評クラス。
 /// </summary>
+[Comment("書評")]
 public sealed class BookReview : IHasDbTimestamps
 {
 
