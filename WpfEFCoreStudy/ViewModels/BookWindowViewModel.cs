@@ -9,13 +9,14 @@ using WpfEFCoreStudy.Constants;
 using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
 using WpfEFCoreStudy.Services.Interfaces;
+using WpfEFCoreStudy.ViewModels.Common;
 
 namespace WpfEFCoreStudy.ViewModels;
 
 /// <summary>
 /// BookWindow 用 ViewModel。
 /// </summary>
-public sealed partial class BookWindowViewModel : ObservableObject
+public sealed partial class BookWindowViewModel : ObservableObject, IAsyncInitialization
 {
 
     [ObservableProperty]
