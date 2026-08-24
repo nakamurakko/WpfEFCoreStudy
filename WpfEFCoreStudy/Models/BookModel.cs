@@ -65,7 +65,7 @@ public static class BookModel
         }
         if (!string.IsNullOrWhiteSpace(authorName))
         {
-            predicateBuilder.Or(x => x.Author.AuthorName.Contains(authorName));
+            predicateBuilder.Or(x => (x.Author == null) ? false : x.Author.AuthorName.Contains(authorName));
         }
 
         // Left Join で取得。 <https://learn.microsoft.com/ja-jp/dotnet/csharp/linq/standard-query-operators/join-operations#perform-left-outer-joins>
