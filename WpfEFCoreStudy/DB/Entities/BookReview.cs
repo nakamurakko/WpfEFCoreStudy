@@ -12,6 +12,7 @@ public sealed class BookReview : IHasDbTimestamps
 {
 
     /// <summary>書評 ID</summary>
+    [Key]
     [Comment("書評 ID")]
     public long BookReviewId { get; set; }
 

@@ -13,6 +13,7 @@ public sealed class Author : IHasDbTimestamps
 {
 
     /// <summary>著者 ID</summary>
+    [Key]
     [Comment("著者 ID")]
     public long AuthorId { get; set; }
 
