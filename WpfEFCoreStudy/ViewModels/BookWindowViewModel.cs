@@ -81,13 +81,13 @@ public sealed partial class BookWindowViewModel : ObservableObject, IAsyncInitia
     private async Task InitializeAsync(long? bookId, DisplayMode displayMode)
     {
         List<Author> authors = await BookModel.GetAuthorsAsync();
-        this.Authors = new ObservableCollection<Author>(authors);
+        this.Authors = new(authors);
 
         if (bookId.HasValue)
         {
             this.Book = await BookModel.GetBookByIdAsync(bookId.Value);
             // ComboBox の選択値と一致させるため、一覧のインスタンスを設定する。
-            this.Book.Author = this.Authors.FirstOrDefault(x => x.AuthorId == bookId);
+            this.Book.Author = this.Authors.Where(x => x.AuthorId == this.Book.AuthorId).FirstOrDefault();
         }
         else
         {
