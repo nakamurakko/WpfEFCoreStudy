@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfEFCoreStudy.Views"
         xmlns:viewModels="clr-namespace:WpfEFCoreStudy.ViewModels"
+        xmlns:views="clr-namespace:WpfEFCoreStudy.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
         Title="{Binding Title}">
@@ -136,20 +136,20 @@
                                   ColumnDefinitions="auto, auto, auto">
                                 <Grid Grid.Column="0"
                                       Style="{StaticResource RightSpacingStyle}">
-                                    <Button Command="{Binding DataContext.ShowBookCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}}"
+                                    <Button Command="{Binding DataContext.ShowBookCommand, RelativeSource={RelativeSource AncestorType={x:Type views:MainWindow}}}"
                                             CommandParameter="{Binding}"
                                             Content="表示" />
                                 </Grid>
 
                                 <Grid Grid.Column="1"
                                       Style="{StaticResource RightSpacingStyle}">
-                                    <Button Command="{Binding DataContext.EditBookCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}}"
+                                    <Button Command="{Binding DataContext.EditBookCommand, RelativeSource={RelativeSource AncestorType={x:Type views:MainWindow}}}"
                                             CommandParameter="{Binding}"
                                             Content="編集" />
                                 </Grid>
 
                                 <Button Grid.Column="2"
-                                        Command="{Binding DataContext.EditBookReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}}"
+                                        Command="{Binding DataContext.EditBookReviewCommand, RelativeSource={RelativeSource AncestorType={x:Type views:MainWindow}}}"
                                         CommandParameter="{Binding}"
                                         Content="書評" />
 
