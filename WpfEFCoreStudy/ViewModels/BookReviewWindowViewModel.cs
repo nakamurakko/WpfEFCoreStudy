@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
 using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
@@ -28,13 +29,25 @@ public sealed partial class BookReviewWindowViewModel : ObservableObject, IAsync
 
     public Task Initialization { get; private set; }
 
-    public BookReviewWindowViewModel() : this(null)
+    /// <summary>
+    /// コンストラクター。
+    /// </summary>
+    /// <remarks>
+    /// DialogService.ShowDialog でデフォルトコンストラクターを指定しているため用意しているが、
+    /// 使用した場合は引数付きコンストラクターで例外を発生させる。
+    /// </remarks>
+    public BookReviewWindowViewModel() : this(0)
     {
     }
 
-    public BookReviewWindowViewModel(long? bookId)
+    public BookReviewWindowViewModel(long bookId)
     {
-        this.Initialization = this.InitializeAsync(bookId!.Value);
+        if (bookId <= 0)
+        {
+            throw new ArgumentException("bookId must be greater than 0.", nameof(bookId));
+        }
+
+        this.Initialization = this.InitializeAsync(bookId);
     }
 
     private async Task InitializeAsync(long bookId)
