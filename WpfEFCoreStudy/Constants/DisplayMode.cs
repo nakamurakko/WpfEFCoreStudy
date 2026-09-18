@@ -6,19 +6,13 @@
 public enum DisplayMode
 {
 
-    /// <summary>
-    /// 追加。
-    /// </summary>
+    /// <summary>追加</summary>
     Add,
 
-    /// <summary>
-    /// 編集。
-    /// </summary>
+    /// <summary>編集</summary>
     Edit,
 
-    /// <summary>
-    /// 表示のみ。
-    /// </summary>
+    /// <summary>表示のみ</summary>
     ReadOnly,
 
 }
