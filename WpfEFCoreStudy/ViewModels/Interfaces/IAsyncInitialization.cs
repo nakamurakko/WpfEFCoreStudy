@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace WpfEFCoreStudy.ViewModels.Common;
+namespace WpfEFCoreStudy.ViewModels.Interfaces;
 
 // https://learn.microsoft.com/ja-jp/archive/msdn-magazine/2014/may/async-programming-patterns-for-asynchronous-mvvm-applications-services
 

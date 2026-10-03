@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
+using WpfEFCoreStudy.DB.Entities.Interfaces;
 
 namespace WpfEFCoreStudy.DB.Entities;
 

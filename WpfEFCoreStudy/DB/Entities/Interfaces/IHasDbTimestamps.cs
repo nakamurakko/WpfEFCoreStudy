@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WpfEFCoreStudy.DB;
+namespace WpfEFCoreStudy.DB.Entities.Interfaces;
 
 /// <summary>
 /// DB 更新日時用インターフェイス。

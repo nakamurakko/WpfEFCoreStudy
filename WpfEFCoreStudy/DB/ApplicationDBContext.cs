@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using WpfEFCoreStudy.DB.Entities;
+using WpfEFCoreStudy.DB.Entities.Interfaces;
 
 namespace WpfEFCoreStudy.DB;
 

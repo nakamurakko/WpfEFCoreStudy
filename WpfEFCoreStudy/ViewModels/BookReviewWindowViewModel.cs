@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WpfEFCoreStudy.DB.Entities;
 using WpfEFCoreStudy.Models;
 using WpfEFCoreStudy.Services.Interfaces;
-using WpfEFCoreStudy.ViewModels.Common;
+using WpfEFCoreStudy.ViewModels.Interfaces;
 
 namespace WpfEFCoreStudy.ViewModels;
 
