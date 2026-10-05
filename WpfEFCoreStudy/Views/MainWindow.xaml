@@ -15,6 +15,14 @@
 
     <Window.Resources>
 
+        <Style x:Key="LeftSpacingStyle"
+               TargetType="{x:Type Grid}">
+            <Style.Setters>
+                <Setter Property="Margin"
+                        Value="5, 0, 0, 0" />
+            </Style.Setters>
+        </Style>
+
         <Style x:Key="RightSpacingStyle"
                TargetType="{x:Type Grid}">
             <Style.Setters>
@@ -43,36 +51,51 @@
               ColumnDefinitions="*, auto, auto, auto, auto">
 
             <Grid Grid.Column="0"
-                  ColumnDefinitions="auto, *, auto, *">
+                  ColumnDefinitions="*, *"
+                  Style="{StaticResource LeftSpacingStyle}">
 
-                <Label Grid.Column="0"
-                       Content="タイトル"
-                       VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="1"
-                         Text="{Binding SearchTitle}"
-                         VerticalContentAlignment="Center" />
-                <Label Grid.Column="2"
-                       Content="著者"
-                       VerticalContentAlignment="Center" />
-                <TextBox Grid.Column="3"
-                         Text="{Binding SearchAuthorName}"
-                         VerticalContentAlignment="Center" />
+                <Grid Grid.Column="0"
+                      ColumnDefinitions="auto, *"
+                      Style="{StaticResource RightSpacingStyle}">
+                    <Label Grid.Column="0"
+                           Content="タイトル"
+                           VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1"
+                             Text="{Binding SearchTitle}"
+                             VerticalContentAlignment="Center" />
+                </Grid>
+                <Grid Grid.Column="1"
+                      ColumnDefinitions="auto, *"
+                      Style="{StaticResource RightSpacingStyle}">
+                    <Label Grid.Column="0"
+                           Content="著者"
+                           VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="1"
+                             Text="{Binding SearchAuthorName}"
+                             VerticalContentAlignment="Center" />
+                </Grid>
             </Grid>
 
-            <Button Grid.Column="1"
-                    Command="{Binding SearchBooksCommand}"
-                    Content="検索" />
-            <Button Grid.Column="2"
-                    Command="{Binding ClearSearchResultCommand}"
-                    Content="検索結果をクリア" />
-
-            <Button Grid.Column="3"
-                    Command="{Binding AddBookCommand}"
-                    Content="本を追加" />
-
-            <Button Grid.Column="4"
-                    Command="{Binding AddAuthorCommand}"
-                    Content="著者を追加" />
+            <Grid Grid.Column="1"
+                  Style="{StaticResource RightSpacingStyle}">
+                <Button Command="{Binding SearchBooksCommand}"
+                        Content="検索" />
+            </Grid>
+            <Grid Grid.Column="2"
+                  Style="{StaticResource RightSpacingStyle}">
+                <Button Command="{Binding ClearSearchResultCommand}"
+                        Content="検索結果をクリア" />
+            </Grid>
+            <Grid Grid.Column="3"
+                  Style="{StaticResource RightSpacingStyle}">
+                <Button Command="{Binding AddBookCommand}"
+                        Content="本を追加" />
+            </Grid>
+            <Grid Grid.Column="4"
+                  Style="{StaticResource RightSpacingStyle}">
+                <Button Command="{Binding AddAuthorCommand}"
+                        Content="著者を追加" />
+            </Grid>
 
         </Grid>
 
